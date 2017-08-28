@@ -5,11 +5,11 @@
       <div class="ui segments">
         <div class="ui segment">
           <div class="ui buttons">
-              <button class='ui  blue button' v-on:click="changeUrl('https://en.wikipedia.org/wiki/Founding_Fathers_of_the_United_States')">
+              <button class='ui  blue button' v-on:click="openUrl('https://login.salesforce.com')">
                 SalesForce
               </button>
               <div class="or"></div>
-              <button class='ui  yellow button' v-on:click="changeUrl('https://login.salesforce.com')">
+              <button class='ui  yellow button' v-on:click="openUrl('https://analytics.walkme.com')">
                 Insights
               </button>
           </div>
@@ -45,25 +45,9 @@ export default {
     }
   },
   methods: {
-    changeUrl (url) {
-      /*
-      axios.get('https://en.wikipedia.org/wiki/Benjamin_Franklin')
-        .then(response => {
-          // JSON responses are automatically parsed.
-          console.log(response.data)
-        })
-        .catch(e => {
-          console.error(e)
-        })
-      */
-      // jsonp('https://en.wikipedia.org/wiki/Benjamin_Franklin', null, function (err, data) {
-      //   if (err) {
-      //     console.error(err.message)
-      //   } else {
-      //     console.log(data)
-      //   }
-      // })
-      // window.document.domain = 'login.salesforce.com'
+    openUrl (url) {
+      var redirectWindow = window.open(url, '_blank')
+      redirectWindow.location
 
       console.log('url is ', url)
       console.log(this.$refs)
