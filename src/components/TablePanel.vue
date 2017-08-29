@@ -15,6 +15,77 @@
           </div>
         </div>
         <div class="ui segment">
+          <table class="ui celled striped table">
+            <thead>
+            <tr>
+              <th colspan="3">
+                  Inputs
+              </th>
+            </tr>
+          </thead>
+            <tbody>
+              <tr>
+                <td rowspan="4">Overview</td>
+                <td>Customer Currency</td>
+                <td class="positive"><select class="ui dropdown ">
+                  <option value="ILS">ILS</option>
+                  <option value="USD">USD</option>
+                  <option value="EUR">EUR</option>
+                  <option value="GBP">GBP</option>
+                  <option value="INR">INR</option>
+                  <option value="AUD">AUD</option>
+                </select>
+              </td>
+              </tr>
+              <tr>
+                <td>Months of Data/ Since Go-Live</td>
+                <td><div class="ui input">
+                      <input type="text" placeholder="Months...">
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Months into Contract</td>
+                <td><div class="ui input">
+                      <input type="text" placeholder="Months...">
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Avg. Employee Hourly Wage</td>
+                <td><div class="ui input">
+                      <input type="text">
+                    </div>
+                </td>
+              </tr>
+              <!-- end overview -->
+              <tr>
+                <td rowspan="4">Training</td>
+                <td># Processes to Train on</td>
+                <td><div class="ui input">
+                      <input type="text">
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Time (minutes) to train per process (traditionally)</td>
+                <td><div class="ui input">
+                      <input type="text">
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Time (hours) to develop training materials without WalkMe</td>
+                <td><div class="ui input">
+                      <input type="text">
+                    </div>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <div class="ui segment">
           <table class="ui celled table">
             <thead>
               <tr>
@@ -48,34 +119,47 @@
           </table>
         </div>
         <div class="ui segment">
-          <table class="ui celled table">
+          <table class="ui celled striped table">
             <thead>
-              <tr>
-                <th>Name</th>
-                <th>Status</th>
-                <th>Notes</th>
-              </tr>
-            </thead>
+              <tr><th colspan="3">
+                Git Repository
+              </th>
+            </tr></thead>
             <tbody>
               <tr>
-                <td>No Name Specified</td>
-                <td>Unknown</td>
-                <td class="negative">None</td>
-              </tr>
-              <tr class="positive">
-                <td>Jimmy</td>
-                <td><i class="icon checkmark"></i> Approved</td>
-                <td>None</td>
+                <td class="collapsing">
+                  <i class="folder icon"></i> node_modules
+                </td>
+                <td>Initial commit</td>
+                <td class="right aligned collapsing">10 hours ago</td>
               </tr>
               <tr>
-                <td>Jamie</td>
-                <td>Unknown</td>
-                <td class="positive"><i class="icon close"></i> Requires call</td>
+                <td>
+                  <i class="folder icon"></i> test
+                </td>
+                <td>Initial commit</td>
+                <td class="right aligned">10 hours ago</td>
               </tr>
-              <tr class="negative">
-                <td>Jill</td>
-                <td>Unknown</td>
-                <td>None</td>
+              <tr>
+                <td>
+                  <i class="folder icon"></i> build
+                </td>
+                <td>Initial commit</td>
+                <td class="right aligned">10 hours ago</td>
+              </tr>
+              <tr>
+                <td>
+                  <i class="file outline icon"></i> package.json
+                </td>
+                <td>Initial commit</td>
+                <td class="right aligned">10 hours ago</td>
+              </tr>
+              <tr>
+                <td>
+                  <i class="file outline icon"></i> Gruntfile.js
+                </td>
+                <td>Initial commit</td>
+                <td class="right aligned">10 hours ago</td>
               </tr>
             </tbody>
           </table>
