@@ -1,19 +1,21 @@
 <template>
   <div>
-    <h1> Hello</h1>
-    <iframe-panel></iframe-panel>
+    <h1> Internal Roi Calculator</h1>
+    <button-panel></button-panel>
+    <br>
     <table-panel></table-panel>
   </div>
 </template>
 
 <script type="text/javascript">
-import IframePanel from './IframePanel'
+// import IframePanel from './IframePanel'
+import ButtonPanel from './ButtonPanel.vue'
 import TablePanel from './TablePanel'
 
 export default {
   props: [],
   components: {
-    IframePanel,
+    ButtonPanel,
     TablePanel
   }
 }

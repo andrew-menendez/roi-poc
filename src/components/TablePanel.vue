@@ -1,6 +1,6 @@
 <template>
   <div id="tablepanel">
-    <h1 class="ui center aligned header"> Table goes here</h1>
+    <!-- <h1 class="ui center aligned header"> Table goes here</h1> -->
     <div class="ui container">
       <div class="ui segments">
         <div class="ui segment">
@@ -25,7 +25,7 @@
           </thead>
             <tbody>
               <tr>
-                <td rowspan="4">Overview</td>
+                <td class="infocell lblue" rowspan="4">Overview</td>
                 <td>Customer Currency</td>
                 <td class="positive"><select class="ui dropdown ">
                   <option value="ILS">ILS</option>
@@ -60,7 +60,7 @@
               </tr>
               <!-- end overview -->
               <tr>
-                <td rowspan="4">Training</td>
+                <td class="infocell tan" rowspan="3">Training</td>
                 <td># Processes to Train on</td>
                 <td><div class="ui input">
                       <input type="text">
@@ -81,7 +81,54 @@
                     </div>
                 </td>
               </tr>
-
+              <!-- end training -->
+              <tr>
+                <td rowspan="2">Support Tickets Deflected</td>
+                <td>% of engagements with WalkMe that would have result with a support ticket.</td>
+                <td><div class="ui input">
+                      <input type="text" placeholder="%">
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Avg. Support Agent Hourly Wage</td>
+                <td><div class="ui input">
+                      <input type="text" placeholder="hours">
+                    </div>
+                </td>
+              </tr>
+              <!-- end support tickets deflected -->
+              <tr>
+                <td rowspan="2">Support Efficiency</td>
+                <td>Support Handling time without a Permalink (mins)</td>
+                <td><div class="ui input">
+                      <input type="text" placeholder="minutes">
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Support handling time with a Permalink (mins)</td>
+                <td><div class="ui input">
+                      <input type="text" placeholder="minutes">
+                    </div>
+                </td>
+              </tr>
+              <!-- end efficiency -->
+              <tr>
+                <td rowspan="2">Data Integrity</td>
+                <td>% of engagements with WalkMe Data Integrity Deliverables that would have resulted in a Data Cleansing Session.</td>
+                <td><div class="ui input">
+                      <input type="text" placeholder="%">
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Time (minutes) to address 1 Data Integrity Issue without WalkMe</td>
+                <td><div class="ui input">
+                      <input type="text" placeholder="minutes">
+                    </div>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -174,4 +221,15 @@ export default {}
 </script>
 
 <style>
+.infocell{
+  font-size:1.5em
+}
+
+.lblue {
+  background-color: #DAEBFF
+}
+
+.tan {
+  background-color: #F2F2F2
+}
 </style>
