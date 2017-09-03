@@ -19,13 +19,13 @@
             <thead>
             <tr>
               <th colspan="3">
-                  Inputs
+                  <h1>General Inputs</h1>
               </th>
             </tr>
           </thead>
             <tbody>
               <tr>
-                <td class="infocell lblue" rowspan="4">Overview</td>
+                <td class="infocell white" rowspan="4">Overview</td>
                 <td>Customer Currency</td>
                 <td class="positive"><select class="ui dropdown ">
                   <option value="ILS">ILS</option>
@@ -83,7 +83,7 @@
               </tr>
               <!-- end training -->
               <tr>
-                <td rowspan="2">Support Tickets Deflected</td>
+                <td class="infocell white" rowspan="2">Support Tickets Deflected</td>
                 <td>% of engagements with WalkMe that would have result with a support ticket.</td>
                 <td><div class="ui input">
                       <input type="text" placeholder="%">
@@ -99,7 +99,7 @@
               </tr>
               <!-- end support tickets deflected -->
               <tr>
-                <td rowspan="2">Support Efficiency</td>
+                <td class="infocell tan" rowspan="2">Support Efficiency</td>
                 <td>Support Handling time without a Permalink (mins)</td>
                 <td><div class="ui input">
                       <input type="text" placeholder="minutes">
@@ -115,7 +115,7 @@
               </tr>
               <!-- end efficiency -->
               <tr>
-                <td rowspan="2">Data Integrity</td>
+                <td class="infocell white" rowspan="2">Data Integrity</td>
                 <td>% of engagements with WalkMe Data Integrity Deliverables that would have resulted in a Data Cleansing Session.</td>
                 <td><div class="ui input">
                       <input type="text" placeholder="%">
@@ -131,7 +131,47 @@
               </tr>
             </tbody>
           </table>
+          <!-- end of inputs -->
         </div>
+        <div class="ui segment">
+          <table class="ui celled striped table">
+            <thead>
+            <tr>
+              <th colspan="2">
+                  <h2>Business Objective</h2>
+              </th>
+              <th>Self Training</th>
+            </tr>
+            <tr>
+              <th colspan="2">
+                Application
+              </th>
+              <th>
+                Task Completions | Tracked Element Clicks
+              </th>
+            </tr>
+
+          </thead>
+            <tbody>
+              <tr>
+                <td class="infocell white" rowspan="4">Training</td>
+                <td>Engagement / Goals Reached</td>
+                <td><div class="ui input">
+                      <input type="text" placeholder="data from insights">
+                    </div>
+                </td>
+              </tr>
+              <tr>
+
+                <td>Avg Monthly Engagement</td>
+                <td>calculated value
+                </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+      <div class="ui segments">
         <div class="ui segment">
           <table class="ui celled table">
             <thead>
@@ -222,14 +262,21 @@ export default {}
 
 <style>
 .infocell{
-  font-size:1.5em
+  font-size:1.5em;
+  border-right: 1px solid #E4E5E5
+  /*#c4c4ce*/
 }
+
 
 .lblue {
   background-color: #DAEBFF
+
+}
+.white {
+  background-color: #FFFFFF
 }
 
 .tan {
-  background-color: #F2F2F2
+  background-color: #FAFAFB
 }
 </style>
