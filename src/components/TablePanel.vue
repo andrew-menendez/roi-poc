@@ -154,7 +154,7 @@
           </thead>
             <tbody>
               <tr>
-                <td class="infocell white" rowspan="4">Training</td>
+                <td class="infocell white" rowspan="6">Training</td>
                 <td>Engagement / Goals Reached</td>
                 <td><div class="ui input">
                       <input type="text" placeholder="data from insights">
@@ -162,10 +162,27 @@
                 </td>
               </tr>
               <tr>
-
                 <td>Avg Monthly Engagement</td>
                 <td>calculated value
                 </td>
+              </tr>
+              <tr>
+                <td>Minutes Saved per Engagement</td>
+                <td><div class="ui input">
+                      <input type="text" placeholder="data from customer">
+                    </div></td>
+              </tr>
+              <tr>
+                <td><strong>Monthly Subtotal Saved</strong></td>
+                <td>calculated value</td>
+              </tr>
+              <tr>
+                <td><strong>Subtotal Saved to Date (Based on Engagement)</strong></td>
+                <td>calculated value</td>
+              </tr>
+              <tr>
+                <td><strong>Projected Annual Savings (Based on Engagement)</strong></td>
+                <td>calculated value</td>
               </tr>
           </tbody>
         </table>
