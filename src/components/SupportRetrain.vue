@@ -8,12 +8,12 @@
         </th>
       </tr>
       <tr>
-        <th colspan="1" class="first"> <h3>Business Objective</h3></th>
+        <th colspan="1" > <h3>Business Objective</h3></th>
         <th colspan="3" class="bo "> Support Tickets Deflected / Re-train Sessions Saved</th>
         <th colspan="1" class="bo "> Support Efficiency</th>
       </tr>
       <tr>
-        <th colspan="1" class="second">
+        <th colspan="1" >
           <h4>Application</h4>
         </th>
         <th>

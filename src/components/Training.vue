@@ -8,12 +8,12 @@
         </th>
       </tr>
       <tr>
-        <th colspan="1" class="first"> <h3>Business Objective</h3></th>
+        <th colspan="1" > <h3>Business Objective</h3></th>
         <th colspan="1" class="bo "> Self Training</th>
 
       </tr>
       <tr>
-        <th colspan="1" class="second">
+        <th colspan="1" >
           <h4>Application</h4>
         </th>
         <th>
