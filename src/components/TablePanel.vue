@@ -137,6 +137,12 @@
     <div class="ui segments">
       <training></training>
       <support-retrain></support-retrain>
+      <data-integrity></data-integrity>
+      <materials-dev></materials-dev>
+    </div>
+    <div class="ui segments">
+      <h1>ROI</h1>
+      <roi-table></roi-table>
     </div>
 
     </div>
@@ -146,12 +152,18 @@
 <script type="text/javascript">
 import SupportRetrain from './SupportRetrain'
 import Training from './Training'
+import DataIntegrity from './DataIntegrity'
+import MaterialsDev from './MaterialsDev'
+import RoiTable from './RoiTable'
 
 export default {
   props: [],
   components: {
     SupportRetrain,
-    Training
+    Training,
+    DataIntegrity,
+    MaterialsDev,
+    RoiTable
   }
 }
 </script>

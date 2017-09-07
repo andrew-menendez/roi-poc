@@ -3,30 +3,24 @@
     <table class="ui celled striped table">
       <thead>
       <tr>
-        <th colspan="5" class="theader">
-            <h2>Support/Retrain</h2>
+        <th colspan="3" class="theader">
+            <h2>Data Integrity</h2>
         </th>
       </tr>
       <tr>
         <th colspan="1" > <h3>Business Objective</h3></th>
-        <th colspan="3" class="bo "> Support Tickets Deflected / Re-train Sessions Saved</th>
-        <th colspan="1" class="bo "> Support Efficiency</th>
+        <th colspan="2" class="bo "> Data Integrity</th>
+
       </tr>
       <tr>
         <th colspan="1" >
           <h4>Application</h4>
         </th>
         <th>
-          <h5>Walk-Thru Plays from widget/launcher/ST</h5>
+          <h5>Launcher Plays (in Data Integrity Segment)</h5>
         </th>
         <th>
-          SmartTips Guidance Views
-        </th>
-        <th>
-          Resource Plays
-        </th>
-        <th>
-          Permalink Clicks
+          SmartTip Validation Views
         </th>
       </tr>
 
@@ -43,21 +37,13 @@
                 <input type="text" placeholder="data from insights">
               </div>
           </td>
-          <td><div class="ui input">
-                <input type="text" placeholder="data from insights">
-              </div>
-          </td>
-          <td><div class="ui input">
-                <input type="text" placeholder="data from insights">
-              </div>
-          </td>
+
         </tr>
         <tr>
           <td>Avg Monthly Engagement</td>
           <td>calculated value</td>
           <td>calculated value</td>
-          <td>calculated value</td>
-          <td>calculated value</td>
+
         </tr>
         <tr>
           <td>Minutes Saved per Engagement</td>
@@ -69,26 +55,17 @@
                 <input type="text" placeholder="data from customer">
               </div>
           </td>
-          <td><div class="ui input">
-                <input type="text" placeholder="data from customer">
-              </div>
-          </td>
-          <td><div class="ui input">
-                <input type="text" placeholder="data from customer">
-              </div>
-          </td>
+
         </tr>
         <tr>
           <td><strong>Average Monthly Savings</strong></td>
           <td>calculated value</td>
           <td>calculated value</td>
-          <td>calculated value</td>
-          <td>calculated value</td>
+
         </tr>
         <tr>
           <td><strong>Total Saved to Date</strong></td>
-          <td colspan="4">calculated value</td>
-          
+          <td colspan="2">calculated value</td>
         </tr>
 
     </tbody>
