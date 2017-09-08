@@ -4,15 +4,21 @@
       <thead>
       <tr>
         <th colspan="3" class="theader">
-            <h2>Material Development</h2>
+          <span>Material Development
+            <span class='toggleIcon' v-on:click="toggleVisible('training')">
+              <button class='ui basic black button'>
+                Toggle Details
+              </button>
+            </span>
+        </span>
         </th>
       </tr>
-      <tr>
+      <tr v-show="sectionVisible">
         <th colspan="1" > <h3>Business Process</h3></th>
         <th colspan="1" class="bo "> Training Material Development</th>
 
       </tr>
-      <tr>
+      <tr >
         <th colspan="1" >
           <h4>Application</h4>
         </th>
@@ -24,7 +30,7 @@
 
     </thead>
       <tbody>
-        <tr>
+        <tr v-show="sectionVisible">
 
           <td>Hours to Develop content with WalkMe per process (benchmarks)</td>
           <td><div class="ui input">
@@ -32,12 +38,12 @@
               </div>
           </td>
         </tr>
-        <tr>
+        <tr v-show="sectionVisible">
           <td>Training material development cost per process with WM</td>
           <td>calculated value</td>
 
         </tr>
-        <tr>
+        <tr v-show="sectionVisible">
           <td>Training material development cost per process without WM</td>
           <td>calculated value</td>
         </tr>
@@ -53,15 +59,28 @@
           <td><strong>Total Cost Saved in Resource Development for all Processes (with WalkMe by Customer)</strong></td>
           <td>calculated value</td>
         </tr>
-
-
     </tbody>
   </table>
   </div>
 </template>
 
 <script type="text/javascript">
-export default {}
+export default {
+  data () {
+    return {
+      sectionVisible: true
+    }
+  },
+  methods: {
+    toggleVisible (string) {
+      console.log(string)
+      this.sectionVisible = !this.sectionVisible
+    },
+    markCompleteEvent (task) {
+      this.$emit('mark-complete-event', task)
+    }
+  }
+}
 </script>
 
 <style>

@@ -4,10 +4,16 @@
       <thead>
       <tr>
         <th colspan="5" class="theader">
-            <h2>Support/Retrain</h2>
+          <span>Support / Retrain
+            <span class='toggleIcon' v-on:click="toggleVisible('training')">
+              <button class='ui basic black button'>
+                Toggle Details
+              </button>
+            </span>
+          </span>
         </th>
       </tr>
-      <tr>
+      <tr v-show="sectionVisible">
         <th colspan="1" > <h3>Business Objective</h3></th>
         <th colspan="3" class="bo "> Support Tickets Deflected / Re-train Sessions Saved</th>
         <th colspan="1" class="bo "> Support Efficiency</th>
@@ -32,7 +38,7 @@
 
     </thead>
       <tbody>
-        <tr>
+        <tr v-show="sectionVisible">
 
           <td>Engagements to Date</td>
           <td><div class="ui input">
@@ -52,14 +58,14 @@
               </div>
           </td>
         </tr>
-        <tr>
+        <tr v-show="sectionVisible">
           <td>Avg Monthly Engagement</td>
           <td>calculated value</td>
           <td>calculated value</td>
           <td>calculated value</td>
           <td>calculated value</td>
         </tr>
-        <tr>
+        <tr v-show="sectionVisible">
           <td>Minutes Saved per Engagement</td>
           <td><div class="ui input">
                 <input type="text" placeholder="data from customer">
@@ -88,7 +94,7 @@
         <tr>
           <td><strong>Total Saved to Date</strong></td>
           <td colspan="4">calculated value</td>
-          
+
         </tr>
 
     </tbody>
@@ -97,7 +103,19 @@
 </template>
 
 <script type="text/javascript">
-export default {}
+export default {
+  data () {
+    return {
+      sectionVisible: true
+    }
+  },
+  methods: {
+    toggleVisible (string) {
+      console.log(string)
+      this.sectionVisible = !this.sectionVisible
+    }
+  }
+}
 </script>
 
 <style>

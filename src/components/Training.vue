@@ -4,15 +4,21 @@
       <thead>
       <tr>
         <th colspan="2" class="theader">
-            <h2>Training</h2>
+            <span>Training
+              <span class='toggleIcon' v-on:click="toggleVisible('training')">
+                <button class='ui basic black button'>
+                  Toggle Details
+                </button>
+              </span>
+          </span>
         </th>
       </tr>
-      <tr>
+      <tr v-show="sectionVisible">
         <th colspan="1" > <h3>Business Objective</h3></th>
         <th colspan="1" class="bo "> Self Training</th>
 
       </tr>
-      <tr>
+      <tr >
         <th colspan="1" >
           <h4>Application</h4>
         </th>
@@ -23,7 +29,7 @@
 
     </thead>
       <tbody>
-        <tr>
+        <tr v-show="sectionVisible">
 
           <td>Engagement / Goals Reached</td>
           <td><div class="ui input">
@@ -32,12 +38,12 @@
           </td>
 
         </tr>
-        <tr>
+        <tr v-show="sectionVisible">
           <td>Avg Monthly Engagement</td>
           <td>calculated value</td>
 
         </tr>
-        <tr>
+        <tr v-show="sectionVisible">
           <td>Minutes Saved per Engagement</td>
           <td><div class="ui input">
                 <input type="text" placeholder="data from customer">
@@ -45,6 +51,7 @@
           </td>
 
         </tr>
+
         <tr>
           <td><strong>Monthly Subtotal Saved</strong></td>
           <td>calculated value</td>
@@ -67,7 +74,23 @@
 </template>
 
 <script type="text/javascript">
-export default {}
+export default {
+  props: ['task'],
+  data () {
+    return {
+      sectionVisible: true
+    }
+  },
+  methods: {
+    toggleVisible (string) {
+      console.log(string)
+      this.sectionVisible = !this.sectionVisible
+    },
+    markCompleteEvent (task) {
+      this.$emit('mark-complete-event', task)
+    }
+  }
+}
 </script>
 
 <style>
@@ -77,13 +100,11 @@ export default {}
   /*#c4c4ce*/
 }
 
-
 .first {
   background-color: #6EBECD !important;
 }
 .second {
   background-color: #B3DCE7 !important;
-
 }
 
 .theader {
@@ -97,8 +118,10 @@ export default {}
 }
 
 .bo {
-  text-align: center !important;
-  font-size: 1.1em;
+  text-align: center !important;  font-size: 1.1em;
+}
 
+.toggleIcon {
+  float: right;
 }
 </style>

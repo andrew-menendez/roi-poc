@@ -4,10 +4,16 @@
       <thead>
       <tr>
         <th colspan="3" class="theader">
-            <h2>Data Integrity</h2>
+          <span>Data Integrity</span>
+            <span class='toggleIcon' v-on:click="toggleVisible('training')">
+              <button class='ui basic black button'>
+                Toggle Details
+              </button>
+            </span>
+
         </th>
       </tr>
-      <tr>
+      <tr v-show="sectionVisible">
         <th colspan="1" > <h3>Business Objective</h3></th>
         <th colspan="2" class="bo "> Data Integrity</th>
 
@@ -26,7 +32,7 @@
 
     </thead>
       <tbody>
-        <tr>
+        <tr v-show="sectionVisible">
 
           <td>Engagements to Date</td>
           <td><div class="ui input">
@@ -39,13 +45,13 @@
           </td>
 
         </tr>
-        <tr>
+        <tr v-show="sectionVisible">
           <td>Avg Monthly Engagement</td>
           <td>calculated value</td>
           <td>calculated value</td>
 
         </tr>
-        <tr>
+        <tr v-show="sectionVisible">
           <td>Minutes Saved per Engagement</td>
           <td><div class="ui input">
                 <input type="text" placeholder="data from customer">
@@ -74,7 +80,19 @@
 </template>
 
 <script type="text/javascript">
-export default {}
+export default {
+  data () {
+    return {
+      sectionVisible: true
+    }
+  },
+  methods: {
+    toggleVisible (string) {
+      console.log(string)
+      this.sectionVisible = !this.sectionVisible
+    }
+  }
+}
 </script>
 
 <style>
