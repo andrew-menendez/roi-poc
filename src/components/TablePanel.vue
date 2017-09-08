@@ -4,17 +4,6 @@
     <div class="ui container">
       <div class="ui segments">
         <div class="ui segment">
-          <div class="ui buttons">
-              <button class='ui basic blue button'>
-                Do something
-              </button>
-
-              <button class='ui basic teal button'>
-                Something else
-              </button>
-          </div>
-        </div>
-        <div class="ui segment">
           <table class="ui celled striped table">
             <thead>
             <tr>
@@ -41,7 +30,7 @@
               <tr>
                 <td>Months of Data/ Since Go-Live</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="Months..." v-model="customer.monthsSinceGoLive">
+                      <input type="text" placeholder="Months..." v-model.lazy="customer.monthsSinceGoLive">
                     </div>
                 </td>
               </tr>
@@ -87,14 +76,14 @@
                 <td class="infocell white" rowspan="2">Support Tickets Deflected</td>
                 <td>% of engagements with WalkMe that would have result with a support ticket.</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="%">
+                      <input type="text" placeholder="%" v-model="customer.percentSupportEngagements">
                     </div>
                 </td>
               </tr>
               <tr>
                 <td>Avg. Support Agent Hourly Wage</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="hours">
+                      <input type="text" placeholder="hours" v-model="customer.hourlyWage">
                     </div>
                 </td>
               </tr>
@@ -103,14 +92,14 @@
                 <td class="infocell tan" rowspan="2">Support Efficiency</td>
                 <td>Support Handling time without a Permalink (mins)</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="minutes">
+                      <input type="text" placeholder="minutes" v-model="customer.supportHandleTimeWithoutPermalink">
                     </div>
                 </td>
               </tr>
               <tr>
                 <td>Support handling time with a Permalink (mins)</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="minutes">
+                      <input type="text" placeholder="minutes" v-model="customer.supportHandleTimeWithPermalink">
                     </div>
                 </td>
               </tr>
@@ -119,19 +108,24 @@
                 <td class="infocell white" rowspan="2">Data Integrity</td>
                 <td>% of engagements with WalkMe Data Integrity Deliverables that would have resulted in a Data Cleansing Session.</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="%">
+                      <input type="text" placeholder="%" v-model="customer.percentDataEngagementsResultingInDataCleansing">
                     </div>
                 </td>
               </tr>
               <tr>
                 <td>Time (minutes) to address 1 Data Integrity Issue without WalkMe</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="minutes">
+                      <input type="text" placeholder="minutes" v-model="customer.minutesToAddressDataIssue">
                     </div>
                 </td>
               </tr>
             </tbody>
           </table>
+          <div class="ui buttons">
+              <button class='ui basic blue button' v-on:click="setData()">
+                Submit
+              </button>
+          </div>
           <!-- end of inputs -->
         </div>
       </div>
@@ -162,7 +156,8 @@ export default {
   data () {
     return {
       customer: {
-        currency: 'USD'
+        currency: 'USD',
+        dataSubmit: false
       }
     }
   },
@@ -176,6 +171,10 @@ export default {
   methods: {
     printData () {
       console.log(this.customer)
+    },
+    setData () {
+      this.customer.dataSubmit = !this.customer.dataSubmit
+      // this is my workaround to force a submit event
     }
   }
 }
