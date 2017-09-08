@@ -20,6 +20,7 @@
             <tr>
               <th colspan="3">
                   <h1>General Inputs</h1>
+                  {{customer}}
               </th>
             </tr>
           </thead>
@@ -27,7 +28,7 @@
               <tr>
                 <td class="infocell white" rowspan="4">Overview</td>
                 <td>Customer Currency</td>
-                <td class="positive"><select class="ui dropdown ">
+                <td class="positive"><select class="ui dropdown " v-model="customer.currency">
                   <option value="ILS">ILS</option>
                   <option value="USD">USD</option>
                   <option value="EUR">EUR</option>
@@ -40,21 +41,21 @@
               <tr>
                 <td>Months of Data/ Since Go-Live</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="Months...">
+                      <input type="text" placeholder="Months..." v-model="customer.monthsSinceGoLive">
                     </div>
                 </td>
               </tr>
               <tr>
                 <td>Months into Contract</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="Months...">
+                      <input type="text" placeholder="Months..." v-model="customer.monthsIntoContract">
                     </div>
                 </td>
               </tr>
               <tr>
                 <td>Avg. Employee Hourly Wage</td>
                 <td><div class="ui input">
-                      <input type="text">
+                      <input type="text" :placeholder="customer.currency" v-model="customer.empHourlyWage">
                     </div>
                 </td>
               </tr>
@@ -63,21 +64,21 @@
                 <td class="infocell tan" rowspan="3">Training</td>
                 <td># Processes to Train on</td>
                 <td><div class="ui input">
-                      <input type="text">
+                      <input type="text" placeholder="#" v-model="customer.processesToTrainOn">
                     </div>
                 </td>
               </tr>
               <tr>
                 <td>Time (minutes) to train per process (traditionally)</td>
                 <td><div class="ui input">
-                      <input type="text">
+                      <input type="text" placeholder="minutes..." v-model="customer.minutesPerTrainingProcess">
                     </div>
                 </td>
               </tr>
               <tr>
                 <td>Time (hours) to develop training materials without WalkMe</td>
                 <td><div class="ui input">
-                      <input type="text">
+                      <input type="text" placeholder="hours" v-model="customer.hoursToDevelopWithoutWM">
                     </div>
                 </td>
               </tr>
@@ -158,12 +159,24 @@ import RoiTable from './RoiTable'
 
 export default {
   props: [],
+  data () {
+    return {
+      customer: {
+        currency: 'USD'
+      }
+    }
+  },
   components: {
     SupportRetrain,
     Training,
     DataIntegrity,
     MaterialsDev,
     RoiTable
+  },
+  methods: {
+    printData () {
+      console.log(this.customer)
+    }
   }
 }
 </script>
