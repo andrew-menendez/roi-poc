@@ -30,21 +30,21 @@
               <tr>
                 <td>Months of Data/ Since Go-Live</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="Months..." v-model.lazy="customer.monthsSinceGoLive">
+                      <input type="text" placeholder="Months..." v-model="customer.monthsSinceGoLive" v-on:keyup="onInput()">
                     </div>
                 </td>
               </tr>
               <tr>
                 <td>Months into Contract</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="Months..." v-model="customer.monthsIntoContract">
+                      <input type="text" placeholder="Months..." v-model="customer.monthsIntoContract" v-on:keyup="onInput()">
                     </div>
                 </td>
               </tr>
               <tr>
                 <td>Avg. Employee Hourly Wage</td>
                 <td><div class="ui input">
-                      <input type="text" :placeholder="customer.currency" v-model="customer.empHourlyWage">
+                      <input type="text" :placeholder="customer.currency" v-model="customer.empHourlyWage" v-on:keyup="onInput()">
                     </div>
                 </td>
               </tr>
@@ -157,7 +157,8 @@ export default {
     return {
       customer: {
         currency: 'USD',
-        dataSubmit: false
+        dataSubmit: false,
+        a: false
       }
     }
   },
@@ -175,6 +176,11 @@ export default {
     setData () {
       this.customer.dataSubmit = !this.customer.dataSubmit
       // this is my workaround to force a submit event
+    },
+    onInput () {
+      console.log(this.customer)
+      this.customer.a = !this.customer.a
+      // same workaround. did research, not sure correct method...
     }
   }
 }
