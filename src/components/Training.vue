@@ -1,12 +1,16 @@
 <template>
   <div class="ui segment">
+    {{customer}}
     <table class="ui celled striped table">
       <thead>
       <tr>
         <th colspan="2" class="theader">
             <span>Training
-              <span class='toggleIcon' v-on:click="toggleVisible('training')">
-                <button class='ui basic black button'>
+              <span class='toggleIcon' >
+                <button class='ui basic black button' v-on:click="getData()">
+                  Update
+                </button>
+                <button class='ui basic black button' v-on:click="toggleVisible('training')">
                   Toggle Details
                 </button>
               </span>
@@ -33,14 +37,17 @@
 
           <td>Engagement / Goals Reached</td>
           <td><div class="ui input">
-                <input type="text" placeholder="data from insights">
+                <input type="text"
+                placeholder="data from insights"
+                v-model="trainingData.engagementGoalsReached"
+                v-on:keyup="getData()">
               </div>
           </td>
 
         </tr>
         <tr v-show="sectionVisible">
           <td>Avg Monthly Engagement</td>
-          <td>calculated value</td>
+          <td>{{trainingData.avgMonthlyEng}} events per month</td>
 
         </tr>
         <tr v-show="sectionVisible">
@@ -70,21 +77,45 @@
 
     </tbody>
   </table>
+  <div class="ui buttons">
+      <button class='ui basic blue button' v-on:click="setData()">
+        Calculate
+      </button>
+  </div>
   </div>
 </template>
 
 <script type="text/javascript">
 export default {
-  props: ['task'],
+  props: ['customer'],
   data () {
     return {
-      sectionVisible: true
+      sectionVisible: true,
+      trainingData: {
+        engagementGoalsReached: '',
+        avgMonthlyEng: ''
+      }
     }
   },
+  // computed: {
+  //   avgMonthlyEng: function () {
+  //     let avgMonthlyEng = this.trainingData.engagementGoalsReached / this.customer.monthsIntoContract
+  //     return avgMonthlyEng
+  //   }
+  // },
   methods: {
     toggleVisible (string) {
       console.log(string)
       this.sectionVisible = !this.sectionVisible
+    },
+    setData () {
+      this.customer.dataSubmit = true
+      // this is my workaround to force a submit event
+    },
+    getData () {
+      // if data from parent component is updated, we need to refresh this value
+      // we should also put an indicator in the header to signify that the data is not fresh
+      this.trainingData.avgMonthlyEng = this.trainingData.engagementGoalsReached / this.customer.monthsIntoContract
     },
     markCompleteEvent (task) {
       this.$emit('mark-complete-event', task)

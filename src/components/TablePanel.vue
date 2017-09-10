@@ -53,21 +53,21 @@
                 <td class="infocell tan" rowspan="3">Training</td>
                 <td># Processes to Train on</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="#" v-model="customer.processesToTrainOn">
+                      <input type="text" placeholder="#" v-model="customer.processesToTrainOn" v-on:keyup="onInput()">
                     </div>
                 </td>
               </tr>
               <tr>
                 <td>Time (minutes) to train per process (traditionally)</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="minutes..." v-model="customer.minutesPerTrainingProcess">
+                      <input type="text" placeholder="minutes..." v-model="customer.minutesPerTrainingProcess" v-on:keyup="onInput()">
                     </div>
                 </td>
               </tr>
               <tr>
                 <td>Time (hours) to develop training materials without WalkMe</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="hours" v-model="customer.hoursToDevelopWithoutWM">
+                      <input type="text" placeholder="hours" v-model="customer.hoursToDevelopWithoutWM" v-on:keyup="onInput()">
                     </div>
                 </td>
               </tr>
@@ -76,14 +76,14 @@
                 <td class="infocell white" rowspan="2">Support Tickets Deflected</td>
                 <td>% of engagements with WalkMe that would have result with a support ticket.</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="%" v-model="customer.percentSupportEngagements">
+                      <input type="text" placeholder="%" v-model="customer.percentSupportEngagements" v-on:keyup="onInput()">
                     </div>
                 </td>
               </tr>
               <tr>
                 <td>Avg. Support Agent Hourly Wage</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="hours" v-model="customer.hourlyWage">
+                      <input type="text" placeholder="hours" v-model="customer.hourlyWage" v-on:keyup="onInput()">
                     </div>
                 </td>
               </tr>
@@ -92,14 +92,14 @@
                 <td class="infocell tan" rowspan="2">Support Efficiency</td>
                 <td>Support Handling time without a Permalink (mins)</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="minutes" v-model="customer.supportHandleTimeWithoutPermalink">
+                      <input type="text" placeholder="minutes" v-model="customer.supportHandleTimeWithoutPermalink" v-on:keyup="onInput()">
                     </div>
                 </td>
               </tr>
               <tr>
                 <td>Support handling time with a Permalink (mins)</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="minutes" v-model="customer.supportHandleTimeWithPermalink">
+                      <input type="text" placeholder="minutes" v-model="customer.supportHandleTimeWithPermalink" v-on:keyup="onInput()">
                     </div>
                 </td>
               </tr>
@@ -108,14 +108,14 @@
                 <td class="infocell white" rowspan="2">Data Integrity</td>
                 <td>% of engagements with WalkMe Data Integrity Deliverables that would have resulted in a Data Cleansing Session.</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="%" v-model="customer.percentDataEngagementsResultingInDataCleansing">
+                      <input type="text" placeholder="%" v-model="customer.percentDataEngagementsResultingInDataCleansing" v-on:keyup="onInput()">
                     </div>
                 </td>
               </tr>
               <tr>
                 <td>Time (minutes) to address 1 Data Integrity Issue without WalkMe</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="minutes" v-model="customer.minutesToAddressDataIssue">
+                      <input type="text" placeholder="minutes" v-model="customer.minutesToAddressDataIssue" v-on:keyup="onInput()">
                     </div>
                 </td>
               </tr>
@@ -130,10 +130,10 @@
         </div>
       </div>
     <div class="ui segments">
-      <training></training>
-      <support-retrain></support-retrain>
-      <data-integrity></data-integrity>
-      <materials-dev></materials-dev>
+      <training v-bind:customer="customer"></training>
+      <support-retrain v-bind:customer="customer"></support-retrain>
+      <data-integrity v-bind:customer="customer"></data-integrity>
+      <materials-dev v-bind:customer="customer"></materials-dev>
     </div>
     <div class="ui segments">
       <h1>ROI</h1>
@@ -174,7 +174,7 @@ export default {
       console.log(this.customer)
     },
     setData () {
-      this.customer.dataSubmit = !this.customer.dataSubmit
+      this.customer.dataSubmit = true
       // this is my workaround to force a submit event
     },
     onInput () {
