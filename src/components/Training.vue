@@ -53,7 +53,7 @@
         <tr v-show="sectionVisible">
           <td>Minutes Saved per Engagement</td>
           <td><div class="ui input">
-                <input type="text" placeholder="data from customer">
+                <input type="text" placeholder="data from customer"  v-model="trainingData.minutesSavedPerEngagement" v-on:keyup="getData()">
               </div>
           </td>
 
@@ -66,8 +66,8 @@
         </tr>
         <tr>
           <td><strong>Subtotal Saved to Date (Based on Engagement)</strong></td>
-          <td>calculated value</td>
 
+          <td>{{trainingData.subtotalSavedtoDate}} {{customer.currency}}</td>
         </tr>
         <tr>
           <td><strong>Projected Annual Savings (Based on Engagement)</strong></td>
@@ -78,7 +78,7 @@
     </tbody>
   </table>
   <div class="ui buttons">
-      <button class='ui basic blue button' v-on:click="setData()">
+      <button class='ui basic blue button' v-on:click="getData()">
         Calculate
       </button>
   </div>
@@ -93,7 +93,8 @@ export default {
       sectionVisible: true,
       trainingData: {
         engagementGoalsReached: '',
-        avgMonthlyEng: ''
+        avgMonthlyEng: '',
+        minutesSavedPerEngagement: 0
       }
     }
   },
@@ -115,10 +116,25 @@ export default {
     getData () {
       // if data from parent component is updated, we need to refresh this value
       // we should also put an indicator in the header to signify that the data is not fresh
-      this.trainingData.avgMonthlyEng = this.trainingData.engagementGoalsReached / this.customer.monthsIntoContract
+      this.trainingData.avgMonthlyEng = this.trainingData.engagementGoalsReached / this.customer.monthsSinceGoLive
+      this.trainingData.subtotalSavedtoDate = this.subtotalSavedtoDate(this.trainingData.engagementGoalsReached, this.trainingData.minutesSavedPerEngagement, this.customer.empHourlyWage, this.customer.trainerHourlyWage)
+      // finally working as expected
+      this.$forceUpdate()
     },
     markCompleteEvent (task) {
       this.$emit('mark-complete-event', task)
+    },
+    subtotalSavedtoDate (engagementGoalsReached, minutesSavedPerEngagement, empHourlyWage, trainerHourlyWage) {
+      console.log(engagementGoalsReached, minutesSavedPerEngagement, empHourlyWage, trainerHourlyWage)
+      let empSave = (engagementGoalsReached * minutesSavedPerEngagement) / 60 * empHourlyWage
+      let trainSave = (engagementGoalsReached * minutesSavedPerEngagement) / 60 * trainerHourlyWage
+      console.log(empSave, trainSave)
+      let subtotal = empSave + trainSave
+      console.log('calculating subtotal')
+      console.log(subtotal)
+      this.trainingData.subtotalSavedtoDate = subtotal
+      console.log(this.trainingData.subtotalSavedtoDate)
+      return subtotal
     }
   }
 }

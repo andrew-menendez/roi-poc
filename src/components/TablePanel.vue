@@ -50,7 +50,7 @@
               </tr>
               <!-- end overview -->
               <tr>
-                <td class="infocell tan" rowspan="3">Training</td>
+                <td class="infocell tan" rowspan="4">Training</td>
                 <td># Processes to Train on</td>
                 <td><div class="ui input">
                       <input type="text" placeholder="#" v-model="customer.processesToTrainOn" v-on:keyup="onInput()">
@@ -61,6 +61,13 @@
                 <td>Time (minutes) to train per process (traditionally)</td>
                 <td><div class="ui input">
                       <input type="text" placeholder="minutes..." v-model="customer.minutesPerTrainingProcess" v-on:keyup="onInput()">
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Average Trainer's Hourly Wage</td>
+                <td><div class="ui input">
+                      <input type="text" :placeholder="customer.currency" v-model="customer.trainerHourlyWage" v-on:keyup="onInput()">
                     </div>
                 </td>
               </tr>
