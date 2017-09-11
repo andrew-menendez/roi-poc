@@ -61,7 +61,7 @@
 
         <tr>
           <td><strong>Monthly Subtotal Saved</strong></td>
-          <td>calculated value</td>
+          <td>{{trainingData.monthlySubtotalSaved}} {{customer.currency}}</td>
 
         </tr>
         <tr>
@@ -94,7 +94,8 @@ export default {
       trainingData: {
         engagementGoalsReached: '',
         avgMonthlyEng: '',
-        minutesSavedPerEngagement: 0
+        minutesSavedPerEngagement: 0,
+        monthlySubtotalSaved: 'needs input'
       }
     }
   },
@@ -118,6 +119,7 @@ export default {
       // we should also put an indicator in the header to signify that the data is not fresh
       this.trainingData.avgMonthlyEng = this.trainingData.engagementGoalsReached / this.customer.monthsSinceGoLive
       this.trainingData.subtotalSavedtoDate = this.subtotalSavedtoDate(this.trainingData.engagementGoalsReached, this.trainingData.minutesSavedPerEngagement, this.customer.empHourlyWage, this.customer.trainerHourlyWage)
+      this.trainingData.monthlySubtotalSaved = this.trainingData.subtotalSavedtoDate / this.customer.monthsSinceGoLive
       // finally working as expected
       this.$forceUpdate()
     },
