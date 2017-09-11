@@ -71,7 +71,7 @@
         </tr>
         <tr>
           <td><strong>Projected Annual Savings (Based on Engagement)</strong></td>
-          <td>calculated value</td>
+          <td>{{trainingData.projectedAnnualSavings}} {{customer.currency}}</td>
 
         </tr>
 
@@ -95,7 +95,8 @@ export default {
         engagementGoalsReached: '',
         avgMonthlyEng: '',
         minutesSavedPerEngagement: 0,
-        monthlySubtotalSaved: 'needs input'
+        monthlySubtotalSaved: 'needs input',
+        projectedAnnualSavings: 'needs input'
       }
     }
   },
@@ -120,6 +121,7 @@ export default {
       this.trainingData.avgMonthlyEng = this.trainingData.engagementGoalsReached / this.customer.monthsSinceGoLive
       this.trainingData.subtotalSavedtoDate = this.subtotalSavedtoDate(this.trainingData.engagementGoalsReached, this.trainingData.minutesSavedPerEngagement, this.customer.empHourlyWage, this.customer.trainerHourlyWage)
       this.trainingData.monthlySubtotalSaved = this.trainingData.subtotalSavedtoDate / this.customer.monthsSinceGoLive
+      this.trainingData.projectedAnnualSavings = this.trainingData.monthlySubtotalSaved * 12
       // finally working as expected
       this.$forceUpdate()
     },
