@@ -10,7 +10,7 @@
                 <button class='ui basic black button' v-on:click="getData()">
                   Update
                 </button>
-                <button class='ui basic black button' v-on:click="toggleVisible('training')">
+                <button class='ui basic black button' v-on:click="toggleVisible()">
                   Toggle Details
                 </button>
               </span>
@@ -47,7 +47,7 @@
         </tr>
         <tr v-show="sectionVisible">
           <td>Avg Monthly Engagement</td>
-          <td>{{trainingData.avgMonthlyEng}} events per month</td>
+          <td>{{round(trainingData.avgMonthlyEng,1)}} events per month</td>
 
         </tr>
         <tr v-show="sectionVisible">
@@ -61,17 +61,17 @@
 
         <tr>
           <td><strong>Monthly Subtotal Saved</strong></td>
-          <td>{{trainingData.monthlySubtotalSaved}} {{customer.currency}}</td>
+          <td>{{round(trainingData.monthlySubtotalSaved,2)}} <span v-show="isNumber(trainingData.monthlySubtotalSaved)"> {{customer.currency}}</span></td>
 
         </tr>
         <tr>
           <td><strong>Subtotal Saved to Date (Based on Engagement)</strong></td>
 
-          <td>{{trainingData.subtotalSavedtoDate}} {{customer.currency}}</td>
+          <td>{{round(trainingData.subtotalSavedtoDate,2)}} <span v-show="isNumber(trainingData.monthlySubtotalSaved)"> {{customer.currency}}</span></td>
         </tr>
         <tr>
           <td><strong>Projected Annual Savings (Based on Engagement)</strong></td>
-          <td>{{trainingData.projectedAnnualSavings}} {{customer.currency}}</td>
+          <td>{{round(trainingData.projectedAnnualSavings,2)}} <span v-show="isNumber(trainingData.monthlySubtotalSaved)"> {{customer.currency}}</span></td>
 
         </tr>
 
@@ -86,6 +86,9 @@
 </template>
 
 <script type="text/javascript">
+
+import round from '../mixins/round.js'
+
 export default {
   props: ['customer'],
   data () {
@@ -96,7 +99,8 @@ export default {
         avgMonthlyEng: '',
         minutesSavedPerEngagement: 0,
         monthlySubtotalSaved: 'needs input',
-        projectedAnnualSavings: 'needs input'
+        projectedAnnualSavings: 'needs input',
+        subtotalSavedtoDate: 'needs input'
       }
     }
   },
@@ -106,9 +110,9 @@ export default {
   //     return avgMonthlyEng
   //   }
   // },
+  mixins: [ round ],
   methods: {
-    toggleVisible (string) {
-      console.log(string)
+    toggleVisible () {
       this.sectionVisible = !this.sectionVisible
     },
     setData () {
@@ -132,13 +136,12 @@ export default {
       console.log(engagementGoalsReached, minutesSavedPerEngagement, empHourlyWage, trainerHourlyWage)
       let empSave = (engagementGoalsReached * minutesSavedPerEngagement) / 60 * empHourlyWage
       let trainSave = (engagementGoalsReached * minutesSavedPerEngagement) / 60 * trainerHourlyWage
-      console.log(empSave, trainSave)
       let subtotal = empSave + trainSave
-      console.log('calculating subtotal')
-      console.log(subtotal)
       this.trainingData.subtotalSavedtoDate = subtotal
-      console.log(this.trainingData.subtotalSavedtoDate)
       return subtotal
+    },
+    isNumber (input) {
+      return typeof input === 'number'
     }
   }
 }
