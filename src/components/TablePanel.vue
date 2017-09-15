@@ -90,7 +90,7 @@
               <tr>
                 <td>Avg. Support Agent Hourly Wage</td>
                 <td><div class="ui input">
-                      <input type="text" placeholder="hours" v-model="customer.hourlyWage" v-on:keyup="onInput()">
+                      <input type="text" placeholder="" v-model="customer.supportHourlyWage" v-on:keyup="onInput()">
                     </div>
                 </td>
               </tr>

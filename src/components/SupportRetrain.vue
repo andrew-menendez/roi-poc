@@ -74,10 +74,10 @@
         </tr>
         <tr v-show="sectionVisible">
           <td>Avg Monthly Engagement</td>
-          <td>{{supportData.avgMonthyEngagement.wtp}}</td>
-          <td>{{supportData.avgMonthyEngagement.smartTips}}</td>
-          <td>{{supportData.avgMonthyEngagement.resource}}</td>
-          <td>{{supportData.avgMonthyEngagement.permalink}}</td>
+          <td>{{supportData.avgMonthlyEngagement.wtp}}</td>
+          <td>{{supportData.avgMonthlyEngagement.smartTips}}</td>
+          <td>{{supportData.avgMonthlyEngagement.resource}}</td>
+          <td>{{supportData.avgMonthlyEngagement.permalink}}</td>
         </tr>
         <tr v-show="sectionVisible">
           <td>Minutes Saved Per Engagement</td>
@@ -85,37 +85,37 @@
                 <input type="text"
                 placeholder="data from insights"
                 v-model="supportData.minutesSavedPerEngagement.wtp"
-                v-on:keyup="getData()">
+                v-on:keyup="getColAMS('wtp')">
               </div>
           </td>
           <td><div class="ui input">
               <input type="text"
               placeholder="data from insights"
               v-model="supportData.minutesSavedPerEngagement.smartTips"
-              v-on:keyup="getData()">
+              v-on:keyup="getColAMS('smartTips')">
             </div>
           </td>
           <td><div class="ui input">
               <input type="text"
               placeholder="data from insights"
               v-model="supportData.minutesSavedPerEngagement.resource"
-              v-on:keyup="getData()">
+              v-on:keyup="getColAMS('resource')">
               </div>
           </td>
           <td><div class="ui input">
               <input type="text"
               placeholder="data from insights"
               v-model="supportData.minutesSavedPerEngagement.permalink"
-              v-on:keyup="getData()">
+              v-on:keyup="getColAMS('permalink')">
               </div>
           </td>
         </tr>
         <tr>
           <td><strong>Average Monthly Savings</strong></td>
-          <td>{{supportData.avgMonthySavings.wtp}}</td>
-          <td>{{supportData.avgMonthySavings.smartTips}}</td>
-          <td>{{supportData.avgMonthySavings.resource}}</td>
-          <td>{{supportData.avgMonthySavings.permalink}}</td>
+          <td>{{supportData.avgMonthlySavings.wtp}}</td>
+          <td>{{supportData.avgMonthlySavings.smartTips}}</td>
+          <td>{{supportData.avgMonthlySavings.resource}}</td>
+          <td>{{supportData.avgMonthlySavings.permalink}}</td>
         </tr>
         <tr>
           <td><strong>Total Saved to Date</strong></td>
@@ -142,7 +142,7 @@ export default {
           resource: null,
           permalink: null
         },
-        avgMonthyEngagement: {
+        avgMonthlyEngagement: {
           wtp: null,
           smartTips: null,
           resource: null,
@@ -154,7 +154,7 @@ export default {
           resource: null,
           permalink: null
         },
-        avgMonthySavings: {
+        avgMonthlySavings: {
           wtp: null,
           smartTips: null,
           resource: null,
@@ -169,21 +169,49 @@ export default {
       console.log(string)
       this.sectionVisible = !this.sectionVisible
     },
-    getAvgMonthEng (cols) {
+    getAvgMonthlyEng (cols) {
       let supportData = this.supportData
       let customer = this.customer
       cols.forEach(function (col) {
-        supportData.avgMonthyEngagement[col] = supportData.engagementsToDate[col] / customer.monthsSinceGoLive
+        supportData.avgMonthlyEngagement[col] = supportData.engagementsToDate[col] / customer.monthsSinceGoLive
       })
-      return supportData.avgMonthyEngagement
+      return supportData.avgMonthlyEngagement
+    },
+    getAvgMonthlySavings (cols) {
+      let supportData = this.supportData
+      let customer = this.customer
+      console.log(customer)
+      console.log(supportData)
+      cols.forEach(function (col) {
+        console.log(col)
+        let supportSavings = supportData.avgMonthlyEngagement[col] * customer.percentSupportEngagements * supportData.minutesSavedPerEngagement[col] / 60 * customer.supportHourlyWage
+        console.log(supportData.avgMonthlyEngagement[col], customer.percentSupportEngagements, supportData.minutesSavedPerEngagement[col], customer.supportHourlyWage)
+        let employeeSavings = supportData.avgMonthlyEngagement[col] * customer.percentSupportEngagements * supportData.minutesSavedPerEngagement[col] / 60 * customer.trainerHourlyWage
+        // console.log(supportSavings, employeeSavings)
+        supportData.avgMonthlySavings[col] = supportSavings + employeeSavings
+      })
+      return supportData.avgMonthlySavings
+    },
+    getAvgMonthlySavingsCol (col) {
+      let supportData = this.supportData
+      let customer = this.customer
+      let supportSavings = supportData.avgMonthlyEngagement[col] * customer.percentSupportEngagements * supportData.minutesSavedPerEngagement[col] / 60 * customer.supportHourlyWage
+      console.log(supportData.avgMonthlyEngagement[col], customer.percentSupportEngagements, supportData.minutesSavedPerEngagement[col], customer.supportHourlyWage)
+      let employeeSavings = supportData.avgMonthlyEngagement[col] * customer.percentSupportEngagements * supportData.minutesSavedPerEngagement[col] / 60 * customer.trainerHourlyWage
+      supportData.avgMonthlySavings[col] = supportSavings + employeeSavings
+      return supportData.avgMonthlySavings[col]
     },
     getData () {
       // if data from parent component is updated, we need to refresh this value
       // we should also put an indicator in the header to signify that the data is not fresh
-      this.supportData.avgMonthlyEng = this.getAvgMonthEng(this.columns)
-
+      this.supportData.avgMonthlyEng = this.getAvgMonthlyEng(this.columns)
+      // this.supportData.avgMonthlySavings = this.getAvgMonthlySavings(this.columns)
       // finally working as expected
       this.$forceUpdate()
+    },
+    getColAMS (col) {
+      this.supportData.avgMonthlySavings[col] = this.getAvgMonthlySavingsCol(col)
+      this.$forceUpdate
     }
   }
 }
