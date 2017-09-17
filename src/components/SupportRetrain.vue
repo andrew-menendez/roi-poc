@@ -47,28 +47,28 @@
                 <input type="text"
                 placeholder="data from insights"
                 v-model="supportData.engagementsToDate.wtp"
-                v-on:keyup="getData()">
+                v-on:keyup="getAvgMonthlyEngCol('wtp')">
               </div>
           </td>
           <td><div class="ui input">
               <input type="text"
               placeholder="data from insights"
               v-model="supportData.engagementsToDate.smartTips"
-              v-on:keyup="getData()">
+              v-on:keyup="getAvgMonthlyEngCol('smartTips')">
             </div>
           </td>
           <td><div class="ui input">
               <input type="text"
               placeholder="data from insights"
               v-model="supportData.engagementsToDate.resource"
-              v-on:keyup="getData()">
+              v-on:keyup="getAvgMonthlyEngCol('resource')">
               </div>
           </td>
           <td><div class="ui input">
               <input type="text"
               placeholder="data from insights"
               v-model="supportData.engagementsToDate.permalink"
-              v-on:keyup="getData()">
+              v-on:keyup="getAvgMonthlyEngCol('permalink')">
               </div>
           </td>
         </tr>
@@ -119,12 +119,17 @@
         </tr>
         <tr>
           <td><strong>Total Saved to Date</strong></td>
-          <td colspan="4">{{supportData.totalSavedToDate}}</td>
+          <td colspan="4" class="final">{{supportData.totalSavedToDate}}</td>
 
         </tr>
 
     </tbody>
   </table>
+  <div class="ui buttons">
+      <button class='ui basic blue button' v-on:click="final()">
+        Calculate
+      </button>
+  </div>
   </div>
 </template>
 
@@ -177,21 +182,27 @@ export default {
       })
       return supportData.avgMonthlyEngagement
     },
-    getAvgMonthlySavings (cols) {
+    getAvgMonthlyEngCol (col) {
       let supportData = this.supportData
       let customer = this.customer
-      console.log(customer)
-      console.log(supportData)
-      cols.forEach(function (col) {
-        console.log(col)
-        let supportSavings = supportData.avgMonthlyEngagement[col] * customer.percentSupportEngagements * supportData.minutesSavedPerEngagement[col] / 60 * customer.supportHourlyWage
-        console.log(supportData.avgMonthlyEngagement[col], customer.percentSupportEngagements, supportData.minutesSavedPerEngagement[col], customer.supportHourlyWage)
-        let employeeSavings = supportData.avgMonthlyEngagement[col] * customer.percentSupportEngagements * supportData.minutesSavedPerEngagement[col] / 60 * customer.trainerHourlyWage
-        // console.log(supportSavings, employeeSavings)
-        supportData.avgMonthlySavings[col] = supportSavings + employeeSavings
-      })
-      return supportData.avgMonthlySavings
+      supportData.avgMonthlyEngagement[col] = supportData.engagementsToDate[col] / customer.monthsSinceGoLive
+      this.$forceUpdate()
     },
+    // getAvgMonthlySavings (cols) {
+    //   let supportData = this.supportData
+    //   let customer = this.customer
+    //   console.log(customer)
+    //   console.log(supportData)
+    //   cols.forEach(function (col) {
+    //     console.log(col)
+    //     let supportSavings = supportData.avgMonthlyEngagement[col] * customer.percentSupportEngagements * supportData.minutesSavedPerEngagement[col] / 60 * customer.supportHourlyWage
+    //     console.log(supportData.avgMonthlyEngagement[col], customer.percentSupportEngagements, supportData.minutesSavedPerEngagement[col], customer.supportHourlyWage)
+    //     let employeeSavings = supportData.avgMonthlyEngagement[col] * customer.percentSupportEngagements * supportData.minutesSavedPerEngagement[col] / 60 * customer.trainerHourlyWage
+    //     // console.log(supportSavings, employeeSavings)
+    //     supportData.avgMonthlySavings[col] = supportSavings + employeeSavings
+    //   })
+    //   return supportData.avgMonthlySavings
+    // },
     getAvgMonthlySavingsCol (col) {
       let supportData = this.supportData
       let customer = this.customer
@@ -202,15 +213,30 @@ export default {
       return supportData.avgMonthlySavings[col]
     },
     getData () {
-      // if data from parent component is updated, we need to refresh this value
-      // we should also put an indicator in the header to signify that the data is not fresh
       this.supportData.avgMonthlyEng = this.getAvgMonthlyEng(this.columns)
-      // this.supportData.avgMonthlySavings = this.getAvgMonthlySavings(this.columns)
-      // finally working as expected
       this.$forceUpdate()
     },
+    // getColAME () {
+    //   // if data from parent component is updated, we need to refresh this value
+    //   // we should also put an indicator in the header to signify that the data is not fresh
+    //   this.supportData.avgMonthlyEng = this.getAvgMonthlyEng(this.columns)
+    //   // this.supportData.avgMonthlySavings = this.getAvgMonthlySavings(this.columns)
+    //   // finally working as expected
+    //   this.$forceUpdate()
+    // },
     getColAMS (col) {
       this.supportData.avgMonthlySavings[col] = this.getAvgMonthlySavingsCol(col)
+      this.$forceUpdate
+    },
+    final () {
+      let columns = this.columns
+      let subtotal = 0
+      let avgMonthlySavings = this.supportData.avgMonthlySavings
+      columns.forEach(function (col) {
+        subtotal = subtotal + avgMonthlySavings[col]
+      })
+      this.supportData.totalSavedToDate = subtotal
+      console.log('final is ', subtotal)
       this.$forceUpdate
     }
   }
@@ -246,6 +272,9 @@ export default {
 .bo {
   text-align: center !important;
   font-size: 1.1em;
+}
 
+.final {
+  text-align: center !important;
 }
 </style>
