@@ -5,11 +5,14 @@
       <tr>
         <th colspan="3" class="theader">
           <span>Data Integrity</span>
-            <span class='toggleIcon' v-on:click="toggleVisible('training')">
-              <button class='ui basic black button'>
-                Toggle Details
-              </button>
-            </span>
+          <span class='toggleIcon' >
+            <button class='ui basic black button' v-on:click="getData()">
+              Update
+            </button>
+            <button class='ui basic black button' v-on:click="toggleVisible()">
+              Toggle Details
+            </button>
+          </span>
 
         </th>
       </tr>
@@ -147,6 +150,9 @@ export default {
       console.log(customer)
       console.log(avgMonthlySavings)
       data.avgMonthlySavings[col] = avgMonthlySavings
+    },
+    getData () {
+      this.$forceUpdate()
     },
     final () {
       let data = this.dataIntegrityData
