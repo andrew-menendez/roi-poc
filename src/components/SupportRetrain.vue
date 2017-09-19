@@ -45,16 +45,16 @@
           <td>Engagements to Date</td>
           <td><div class="ui input">
                 <input type="text"
-                placeholder="data from insights"
-                v-model="supportData.engagementsToDate.wtp"
-                v-on:keyup="getAvgMonthlyEngCol('wtp')">
+                  placeholder="data from insights"
+                  v-model="supportData.engagementsToDate.wtp"
+                  v-on:keyup="getAvgMonthlyEngCol('wtp')">
               </div>
           </td>
           <td><div class="ui input">
               <input type="text"
-              placeholder="data from insights"
-              v-model="supportData.engagementsToDate.smartTips"
-              v-on:keyup="getAvgMonthlyEngCol('smartTips')">
+                placeholder="data from insights"
+                v-model="supportData.engagementsToDate.smartTips"
+                v-on:keyup="getAvgMonthlyEngCol('smartTips')">
             </div>
           </td>
           <td><div class="ui input">
@@ -112,14 +112,14 @@
         </tr>
         <tr>
           <td><strong>Average Monthly Savings</strong></td>
-          <td>{{supportData.avgMonthlySavings.wtp}}</td>
-          <td>{{supportData.avgMonthlySavings.smartTips}}</td>
-          <td>{{supportData.avgMonthlySavings.resource}}</td>
-          <td>{{supportData.avgMonthlySavings.permalink}}</td>
+          <td>{{round(supportData.avgMonthlySavings.wtp,2)}} {{customer.currency}}</td>
+          <td>{{round(supportData.avgMonthlySavings.smartTips,2)}} {{customer.currency}}</td>
+          <td>{{round(supportData.avgMonthlySavings.resource,2)}} {{customer.currency}}</td>
+          <td>{{round(supportData.avgMonthlySavings.permalink,2)}} {{customer.currency}}</td>
         </tr>
         <tr>
           <td><strong>Total Saved to Date</strong></td>
-          <td colspan="4" class="final">{{supportData.totalSavedToDate}}</td>
+          <td colspan="4" class="final">{{round(supportData.totalSavedToDate,2)}} {{customer.currency}}</td>
 
         </tr>
 
@@ -134,6 +134,9 @@
 </template>
 
 <script type="text/javascript">
+
+import round from '../mixins/round.js'
+
 export default {
   props: ['customer'],
   data () {
@@ -169,12 +172,14 @@ export default {
       }
     }
   },
+  mixins: [ round ],
   methods: {
     toggleVisible (string) {
       console.log(string)
       this.sectionVisible = !this.sectionVisible
     },
     getAvgMonthlyEng (cols) {
+      // this function should be cut!
       let supportData = this.supportData
       let customer = this.customer
       cols.forEach(function (col) {
@@ -188,45 +193,22 @@ export default {
       supportData.avgMonthlyEngagement[col] = supportData.engagementsToDate[col] / customer.monthsSinceGoLive
       this.$forceUpdate()
     },
-    // getAvgMonthlySavings (cols) {
-    //   let supportData = this.supportData
-    //   let customer = this.customer
-    //   console.log(customer)
-    //   console.log(supportData)
-    //   cols.forEach(function (col) {
-    //     console.log(col)
-    //     let supportSavings = supportData.avgMonthlyEngagement[col] * customer.percentSupportEngagements * supportData.minutesSavedPerEngagement[col] / 60 * customer.supportHourlyWage
-    //     console.log(supportData.avgMonthlyEngagement[col], customer.percentSupportEngagements, supportData.minutesSavedPerEngagement[col], customer.supportHourlyWage)
-    //     let employeeSavings = supportData.avgMonthlyEngagement[col] * customer.percentSupportEngagements * supportData.minutesSavedPerEngagement[col] / 60 * customer.trainerHourlyWage
-    //     // console.log(supportSavings, employeeSavings)
-    //     supportData.avgMonthlySavings[col] = supportSavings + employeeSavings
-    //   })
-    //   return supportData.avgMonthlySavings
-    // },
     getAvgMonthlySavingsCol (col) {
       let supportData = this.supportData
       let customer = this.customer
       let supportSavings = supportData.avgMonthlyEngagement[col] * customer.percentSupportEngagements * supportData.minutesSavedPerEngagement[col] / 60 * customer.supportHourlyWage
-      console.log(supportData.avgMonthlyEngagement[col], customer.percentSupportEngagements, supportData.minutesSavedPerEngagement[col], customer.supportHourlyWage)
       let employeeSavings = supportData.avgMonthlyEngagement[col] * customer.percentSupportEngagements * supportData.minutesSavedPerEngagement[col] / 60 * customer.trainerHourlyWage
       supportData.avgMonthlySavings[col] = supportSavings + employeeSavings
       return supportData.avgMonthlySavings[col]
     },
     getData () {
+      // this function should be cut!
       this.supportData.avgMonthlyEng = this.getAvgMonthlyEng(this.columns)
       this.$forceUpdate()
     },
-    // getColAME () {
-    //   // if data from parent component is updated, we need to refresh this value
-    //   // we should also put an indicator in the header to signify that the data is not fresh
-    //   this.supportData.avgMonthlyEng = this.getAvgMonthlyEng(this.columns)
-    //   // this.supportData.avgMonthlySavings = this.getAvgMonthlySavings(this.columns)
-    //   // finally working as expected
-    //   this.$forceUpdate()
-    // },
     getColAMS (col) {
       this.supportData.avgMonthlySavings[col] = this.getAvgMonthlySavingsCol(col)
-      this.$forceUpdate
+      this.$forceUpdate()
     },
     final () {
       let columns = this.columns
@@ -237,7 +219,6 @@ export default {
       })
       this.supportData.totalSavedToDate = subtotal
       console.log('final is ', subtotal)
-      this.$forceUpdate
     }
   }
 }
@@ -250,13 +231,11 @@ export default {
   /*#c4c4ce*/
 }
 
-
 .first {
   background-color: #6EBECD !important;
 }
 .second {
   background-color: #B3DCE7 !important;
-
 }
 
 .theader {
