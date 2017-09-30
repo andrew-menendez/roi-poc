@@ -72,6 +72,14 @@
         </tr>
     </tbody>
   </table>
+  <div class="ui buttons">
+      <!-- <button class='ui basic blue button' v-on:click="final()">
+        Calculate
+      </button> -->
+      <button class='ui basic blue button' v-on:click="submitDataEvent('matDevData',matDevData)">
+        Submit Data
+      </button>
+  </div>
   </div>
 </template>
 
@@ -106,6 +114,10 @@ export default {
       data.matDevCostPerProcessWithoutWM = customer.trainerHourlyWage * customer.hoursToDevelopWithoutWM
       data.costSavedPerProcess = data.matDevCostPerProcessWithoutWM - data.matDevCostPerProcessWithWM
       data.totalCostSaved = data.costSavedPerProcess * customer.processesToTrainOn
+    },
+    submitDataEvent (key, data) {
+      console.log(key, data)
+      this.$emit('submit-data-event', key, data)
     }
   },
   mixins: [ round ]

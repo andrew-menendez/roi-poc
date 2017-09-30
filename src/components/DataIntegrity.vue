@@ -95,6 +95,9 @@
         <button class='ui basic blue button' v-on:click="final()">
           Calculate
         </button>
+        <button class='ui basic blue button' v-on:click="submitDataEvent('dataIntegrityData',dataIntegrityData)">
+          Submit Data
+        </button>
     </div>
   </div>
 </template>
@@ -164,6 +167,10 @@ export default {
       })
       data.totalSavedToDate = subtotal
       console.log('final is ', subtotal)
+    },
+    submitDataEvent (key, data) {
+      console.log(key, data)
+      this.$emit('submit-data-event', key, data)
     }
   }
 }

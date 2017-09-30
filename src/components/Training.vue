@@ -81,6 +81,9 @@
       <button class='ui basic blue button' v-on:click="getData()">
         Calculate
       </button>
+      <button class='ui basic blue button' v-on:click="submitDataEvent('trainingData',trainingData)">
+        Submit Data
+      </button>
   </div>
   </div>
 </template>
@@ -129,8 +132,9 @@ export default {
       // finally working as expected
       this.$forceUpdate()
     },
-    markCompleteEvent (task) {
-      this.$emit('mark-complete-event', task)
+    submitDataEvent (key, data) {
+      console.log(key, data)
+      this.$emit('submit-data-event', key, data)
     },
     subtotalSavedtoDate (engagementGoalsReached, minutesSavedPerEngagement, empHourlyWage, trainerHourlyWage) {
       console.log(engagementGoalsReached, minutesSavedPerEngagement, empHourlyWage, trainerHourlyWage)

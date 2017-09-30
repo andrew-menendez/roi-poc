@@ -50,38 +50,35 @@
 </template>
 
 <script type="text/javascript">
-export default {}
+import round from '../mixins/round.js'
+export default {
+  props: ['customer'],
+  data () {
+    return {
+      sectionVisible: true,
+      roiData: {
+        monthlySavings: null,
+        TotalSavedtoDate: null,
+        projectedAnnualSavings: null,
+        acvInCustomerCurrency: null,
+        projectedROIat12months: null,
+        roiAtEndOfContract: null,
+        projectedBreakEvenMonth: null
+      }
+    }
+  },
+  methods: {
+    toggleVisible () {
+      this.sectionVisible = !this.sectionVisible
+    },
+    getData () {
+      this.$forceUpdate()
+    }
+  },
+  mixins: [ round ]
+}
 </script>
 
 <style>
-.infocell{
-  font-size:1.5em;
-  border-right: 1px solid #E4E5E5
-  /*#c4c4ce*/
-}
 
-
-.first {
-  background-color: #6EBECD !important;
-}
-.second {
-  background-color: #B3DCE7 !important;
-
-}
-
-.theader {
-  background-color: #1B9EBA !important;
-  font-size: 1.5em;
-  text-align: center !important;
-}
-
-.tan {
-  background-color: #FAFAFB
-}
-
-.bo {
-  text-align: center !important;
-  font-size: 1.1em;
-
-}
 </style>

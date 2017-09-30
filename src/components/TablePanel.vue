@@ -137,10 +137,10 @@
         </div>
       </div>
     <div class="ui segments">
-      <training v-bind:customer="customer"></training>
-      <support-retrain v-bind:customer="customer"></support-retrain>
-      <data-integrity v-bind:customer="customer"></data-integrity>
-      <materials-dev v-bind:customer="customer"></materials-dev>
+      <training v-on:submit-data-event="updateData" v-bind:customer="customer"></training>
+      <support-retrain v-on:submit-data-event="updateData" v-bind:customer="customer"></support-retrain>
+      <data-integrity v-on:submit-data-event="updateData" v-bind:customer="customer"></data-integrity>
+      <materials-dev v-on:submit-data-event="updateData" v-bind:customer="customer"></materials-dev>
     </div>
     <div class="ui segments">
       <h1>ROI</h1>
@@ -188,6 +188,11 @@ export default {
       console.log(this.customer)
       this.customer.a = !this.customer.a
       // same workaround. did research, not sure correct method...
+    },
+    updateData (key, data) {
+      console.log('outside', key, data)
+      this.customer[key] = data
+      this.$forceUpdate()
     }
   }
 }
