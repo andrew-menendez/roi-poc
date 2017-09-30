@@ -144,7 +144,7 @@
     </div>
     <div class="ui segments">
       <h1>ROI</h1>
-      <roi-table></roi-table>
+      <roi-table v-bind:customer="customer"></roi-table>
     </div>
 
     </div>

@@ -53,7 +53,7 @@
           <td>{{round(matDevData.matDevCostPerProcessWithoutWM,2)}} {{customer.currency}}</td>
         </tr>
         <tr>
-          <td><strong>Misc Traditional Training Costs</strong><br> Travel Costs (flights, hotels, venue booking, etc.) in Customer's Currency</td>
+          <td><strong>Misc Traditional Training Costs (without WM)</strong><br> Travel Costs (flights, hotels, venue booking, etc.) in Customer's Currency</td>
           <td><div class="ui input">
                 <input type="text"
                   placeholder="data from customer"
