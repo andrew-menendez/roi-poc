@@ -10,6 +10,7 @@ var opn = require('opn')
 var path = require('path')
 var express = require('express')
 var webpack = require('webpack')
+const bodyParser = require('body-parser')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = process.env.NODE_ENV === 'testing'
   ? require('./webpack.prod.conf')
@@ -49,16 +50,19 @@ compiler.plugin('compilation', function (compilation) {
 })
 
 // proxy api requests
-Object.keys(proxyTable).forEach(function (context) {
-  var options = proxyTable[context]
-  if (typeof options === 'string') {
-    options = { target: options }
-  }
-  app.use(proxyMiddleware(options.filter || context, options))
-})
+// Object.keys(proxyTable).forEach(function (context) {
+//   var options = proxyTable[context]
+//   if (typeof options === 'string') {
+//     options = { target: options }
+//   }
+//   app.use(proxyMiddleware(options.filter || context, options))
+// })
+app.use('/api', require('../routes/index.js'))
 
 // handle fallback for HTML5 history API
 app.use(require('connect-history-api-fallback')())
+
+
 
 // serve webpack bundle output
 app.use(devMiddleware)
@@ -66,6 +70,15 @@ app.use(devMiddleware)
 // enable hot-reload and state-preserving
 // compilation error display
 app.use(hotMiddleware)
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Routes that will be accessed via AJAX should be prepended with
+// /api so they are isolated from our GET /* wildcard.
+
+
+
 
 // serve pure static assets
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
@@ -94,5 +107,6 @@ module.exports = {
   ready: readyPromise,
   close: () => {
     server.close()
-  }
+  },
+  app: app
 }
