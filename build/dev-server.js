@@ -50,6 +50,8 @@ compiler.plugin('compilation', function (compilation) {
 })
 
 // proxy api requests
+// I don't know what this part does so I'm commenting it out
+
 // Object.keys(proxyTable).forEach(function (context) {
 //   var options = proxyTable[context]
 //   if (typeof options === 'string') {
@@ -57,12 +59,15 @@ compiler.plugin('compilation', function (compilation) {
 //   }
 //   app.use(proxyMiddleware(options.filter || context, options))
 // })
+
+//my data routes
+//this section must be BEFORE the dev middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api', require('../routes/index.js'))
 
 // handle fallback for HTML5 history API
 app.use(require('connect-history-api-fallback')())
-
-
 
 // serve webpack bundle output
 app.use(devMiddleware)
@@ -70,15 +75,6 @@ app.use(devMiddleware)
 // enable hot-reload and state-preserving
 // compilation error display
 app.use(hotMiddleware)
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// Routes that will be accessed via AJAX should be prepended with
-// /api so they are isolated from our GET /* wildcard.
-
-
-
 
 // serve pure static assets
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
