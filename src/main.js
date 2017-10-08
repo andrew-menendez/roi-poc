@@ -9,6 +9,8 @@ import router from './router'
 Vue.config.productionTip = false
 Vue.use(VueResource)
 Vue.use(Vuetify)
+
+router.replace('/about')
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
