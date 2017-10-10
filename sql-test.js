@@ -17,6 +17,7 @@ db.authenticate()
   })
   .then(() => {
     Models.User.findAll().then((x) => {
+      //console.log(x)
       console.log(x[0].dataValues)
     })
   })

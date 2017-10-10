@@ -28,3 +28,13 @@ npm test
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+## Set up DB
+
+* install Postgres via homebrew (https://www.codementor.io/devops/tutorial/getting-started-postgresql-server-mac-osx)
+
+* CREATE ROLE andrew WITH LOGIN PASSWORD 'xxxx';
+* CREATE DATABASE roipoc;
+* install sequelize cli 
+* run db:migrate
+* Download pgAdmin4
