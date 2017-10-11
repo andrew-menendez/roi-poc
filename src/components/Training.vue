@@ -1,91 +1,98 @@
 <template>
-  <div class="ui segment">
-    {{customer}}
-    <table class="ui celled striped table">
-      <thead>
-      <tr>
-        <th colspan="2" class="theader">
-            <span>Training
-              <span class='toggleIcon' >
-                <button class='ui basic black button' v-on:click="getData()">
-                  Update
-                </button>
-                <button class='ui basic black button' v-on:click="toggleVisible()">
-                  Toggle Details
-                </button>
-              </span>
-          </span>
-        </th>
-      </tr>
-      <tr v-show="sectionVisible">
-        <th colspan="1" > <h3>Business Objective</h3></th>
-        <th colspan="1" class="bo "> Self Training</th>
+  <v-layout>
+    <v-flex xs12 sm12 >
+      <v-card>
+        <v-card-title primary-title>
+          <div>
+            <h3 class="headline mb-0">Training Time and Development Costs</h3>
+          </div>
+        </v-card-title>
+        <v-card-text>
+          <v-layout row>
+            <v-flex xs5 offset-xs1>
+             <v-subheader class="leftlabel"> What is the typical amount of time spent per customer on training? (minutes):</v-subheader>
+             <v-divider></v-divider>
+           </v-flex>
+           <v-flex xs4>
+             <v-text-field
+               name="minutesOfCustomerTraining"
+               label="minutes of customer training"
+               v-model="trainingData.minutesOfCustomerTraining"
+               v-on:keyup="getData()"
+               >
+              </v-text-field>
+            </v-flex>
+         </v-layout row>
+         <v-layout row>
+           <v-flex xs5 offset-xs1>
+            <v-subheader class="leftlabel">What portion of your training did we move online (What portion can WalkMe solution for?):</v-subheader>
+            <v-divider></v-divider>
+          </v-flex>
+          <v-flex xs4>
+            <v-text-field
+              name="portionOnWM"
+              label="%"
+              v-model="trainingData.portionOnWM"
+              v-on:keyup="getData()"
+              >
+             </v-text-field>
+           </v-flex>
 
-      </tr>
-      <tr >
-        <th colspan="1" >
-          <h4>Application</h4>
-        </th>
-        <th>
-          <h5>Task Completions | Tracked Element Clicks</h5>
-        </th>
-      </tr>
+        </v-layout row>
+        <v-layout row>
+          <v-flex xs5 offset-xs1>
+           <v-subheader class="leftlabel">What is the avg hourly wage of your trainers?</v-subheader>
+         </v-flex>
+         <v-flex xs4>
+           <v-text-field
+             name="trainerWage"
+             label="Hourly Wage"
+             v-model="trainingData.trainerWage"
+             v-on:keyup="getData()"
+             >
+            </v-text-field>
+          </v-flex>
+       </v-layout row>
+       <v-layout row>
+         <v-flex xs5 offset-xs1>
+          <v-subheader class="leftlabel">For each new training module, how many hours does it typically take you to develop the training materials?</v-subheader>
+        </v-flex>
+        <v-flex xs4>
+          <v-text-field
+            name="trainingMatDevHours"
+            label="Hours to Develop Materials"
+            v-model="trainingData.trainingMatDevHours"
+            v-on:keyup="getData()"
+            >
+           </v-text-field>
+         </v-flex>
+      </v-layout row>
+      <v-layout row>
+        <v-flex xs5 offset-xs1>
+         <v-subheader class="leftlabel">Engagements with Solution</v-subheader>
+       </v-flex>
+       <v-flex xs4>
+         <v-text-field
+           name="engagements"
+           label="engagements"
+           v-model="trainingData.engagements"
+           v-on:keyup="getData()"
+           >
+          </v-text-field>
+        </v-flex>
+     </v-layout row>
 
-    </thead>
-      <tbody>
-        <tr v-show="sectionVisible">
 
-          <td>Engagement / Goals Reached</td>
-          <td><div class="ui input">
-                <input type="text"
-                placeholder="data from insights"
-                v-model="trainingData.engagementGoalsReached"
-                v-on:keyup="getData()">
-              </div>
-          </td>
+        </v-card-text>
 
-        </tr>
-        <tr v-show="sectionVisible">
-          <td>Avg Monthly Engagement</td>
-          <td>{{round(trainingData.avgMonthlyEng,1)}} events per month</td>
-
-        </tr>
-        <tr v-show="sectionVisible">
-          <td>Minutes Saved per Engagement</td>
-          <td><div class="ui input">
-                <input type="text" placeholder="data from customer"  v-model="trainingData.minutesSavedPerEngagement" v-on:keyup="getData()">
-              </div>
-          </td>
-
-        </tr>
-
-        <tr>
-          <td><strong>Monthly Subtotal Saved</strong></td>
-          <td>{{round(trainingData.monthlySubtotalSaved,2)}} <span v-show="isNumber(trainingData.monthlySubtotalSaved)"> {{customer.currency}}</span></td>
-
-        </tr>
-        <tr>
-          <td><strong>Subtotal Saved to Date (Based on Engagement)</strong></td>
-
-          <td>{{round(trainingData.subtotalSavedtoDate,2)}} <span v-show="isNumber(trainingData.monthlySubtotalSaved)"> {{customer.currency}}</span></td>
-        </tr>
-        <tr>
-          <td><strong>Projected Annual Savings (Based on Engagement)</strong></td>
-          <td>{{round(trainingData.projectedAnnualSavings,2)}} <span v-show="isNumber(trainingData.monthlySubtotalSaved)"> {{customer.currency}}</span></td>
-
-        </tr>
-
-    </tbody>
-  </table>
-  <div class="ui buttons">
-      <button class='ui basic blue button' v-on:click="getData()">
-        Calculate
-      </button>
-      <button class='ui basic blue button' v-on:click="submitDataEvent('trainingData',trainingData)">
-        Submit Data
-      </button>
-  </div>
-  </div>
+        <v-flex xs12 offset-xs8>
+          <v-card-actions>
+            <v-btn color="primary">Submit</v-btn>
+          </v-card-actions>
+        </v-flex>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script type="text/javascript">
@@ -98,12 +105,11 @@ export default {
     return {
       sectionVisible: true,
       trainingData: {
-        engagementGoalsReached: '',
-        avgMonthlyEng: '',
-        minutesSavedPerEngagement: 0,
-        monthlySubtotalSaved: 'needs input',
-        projectedAnnualSavings: 'needs input',
-        subtotalSavedtoDate: 'needs input'
+        minutesOfCustomerTraining: '',
+        portionOnWM: '',
+        trainerWage: '',
+        trainingMatDevHours: '',
+        engagements: ''
       }
     }
   },
@@ -123,26 +129,11 @@ export default {
       // this is my workaround to force a submit event
     },
     getData () {
-      // if data from parent component is updated, we need to refresh this value
-      // we should also put an indicator in the header to signify that the data is not fresh
-      this.trainingData.avgMonthlyEng = this.trainingData.engagementGoalsReached / this.customer.monthsSinceGoLive
-      this.trainingData.subtotalSavedtoDate = this.subtotalSavedtoDate(this.trainingData.engagementGoalsReached, this.trainingData.minutesSavedPerEngagement, this.customer.empHourlyWage, this.customer.trainerHourlyWage)
-      this.trainingData.monthlySubtotalSaved = this.trainingData.subtotalSavedtoDate / this.customer.monthsSinceGoLive
-      this.trainingData.projectedAnnualSavings = this.trainingData.monthlySubtotalSaved * 12
-      // finally working as expected
       this.$forceUpdate()
     },
     submitDataEvent (key, data) {
       console.log(key, data)
       this.$emit('submit-data-event', key, data)
-    },
-    subtotalSavedtoDate (engagementGoalsReached, minutesSavedPerEngagement, empHourlyWage, trainerHourlyWage) {
-      console.log(engagementGoalsReached, minutesSavedPerEngagement, empHourlyWage, trainerHourlyWage)
-      let empSave = (engagementGoalsReached * minutesSavedPerEngagement) / 60 * empHourlyWage
-      let trainSave = (engagementGoalsReached * minutesSavedPerEngagement) / 60 * trainerHourlyWage
-      let subtotal = empSave + trainSave
-      this.trainingData.subtotalSavedtoDate = subtotal
-      return subtotal
     },
     isNumber (input) {
       return typeof input === 'number'
@@ -152,34 +143,8 @@ export default {
 </script>
 
 <style>
-.infocell{
-  font-size:1.5em;
-  border-right: 1px solid #E4E5E5
-  /*#c4c4ce*/
-}
-
-.first {
-  background-color: #6EBECD !important;
-}
-.second {
-  background-color: #B3DCE7 !important;
-}
-
-.theader {
-  background-color: #1B9EBA !important;
-  font-size: 1.5em;
-  text-align: center !important;
-}
-
-.tan {
-  background-color: #FAFAFB
-}
-
-.bo {
-  text-align: center !important;  font-size: 1.1em;
-}
-
-.toggleIcon {
-  float: right;
+.leftlabel {
+  text-align: left;
+  font-size: 1.2em;
 }
 </style>

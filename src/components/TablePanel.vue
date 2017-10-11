@@ -1,9 +1,9 @@
 <template>
   <div id="tablepanel">
     <!-- <h1 class="ui center aligned header"> Table goes here</h1> -->
-    <div class="ui container">
-      <div class="ui segments">
-        <div class="ui segment">
+    <div class="v-container">
+      <div >
+        <div >
           <table class="ui celled striped table">
             <thead>
             <tr>
