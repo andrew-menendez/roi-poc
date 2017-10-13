@@ -1,105 +1,84 @@
 <template>
-  <div class="ui segment">
-    <table class="ui celled striped table">
-      <thead>
-      <tr>
-        <th colspan="3" class="theader">
-          <span>Data Integrity</span>
-          <span class='toggleIcon' >
-            <button class='ui basic black button' v-on:click="getData()">
-              Update
-            </button>
-            <button class='ui basic black button' v-on:click="toggleVisible()">
-              Toggle Details
-            </button>
-          </span>
+  <v-layout>
+    <v-flex xs12 sm12 >
+      <v-card>
+        <v-card-title primary-title>
+          <div>
+            <h3 class="headline mb-0">Data Integrity</h3>
+          </div>
+        </v-card-title>
+        <v-card-text>
+          <v-layout row>
+            <v-flex xs5 offset-xs1>
+             <v-subheader class="leftlabel"> How long is someone actively fixing data errors? How much time do you think we save if we stop someone from submitting incorrect information?</v-subheader>
 
-        </th>
-      </tr>
-      <tr v-show="sectionVisible">
-        <th colspan="1" > <h3>Business Objective</h3></th>
-        <th colspan="2" class="bo "> Data Integrity</th>
+           </v-flex>
+           <v-flex xs4>
+             <v-text-field
+               name="ticketResolveTime"
+               label="ticket resolution time"
+               v-model="supportDeflect.ticketResolveTime"
+               v-on:keyup="getData()"
+               >
+              </v-text-field>
+            </v-flex>
+         </v-layout row>
 
-      </tr>
-      <tr>
-        <th colspan="1" >
-          <h4>Application</h4>
-        </th>
-        <th>
-          <h5>Launcher Plays (in Data Integrity Segment)</h5>
-        </th>
-        <th>
-          SmartTip Validation Views
-        </th>
-      </tr>
+         <v-layout row>
+           <v-flex xs5 offset-xs1>
+            <v-subheader class="leftlabel">What is the avg hourly wage of the person cleaning/fixing data?</v-subheader>
 
-    </thead>
-      <tbody>
-        <tr v-show="sectionVisible">
+          </v-flex>
+          <v-flex xs4>
+            <v-text-field
+              name="portionOnWM"
+              label="%"
+              v-model="supportDeflect.supportHourlyWage"
+              v-on:keyup="getData()"
+              >
+             </v-text-field>
+           </v-flex>
 
-          <td>Engagements to Date</td>
-          <td><div class="ui input">
-              <input type="text"
-                placeholder="data from insights"
-                v-model="dataIntegrityData.engagementsToDate.launcherPlays"
-                v-on:keyup="getAvgMonthlyEngCol('launcherPlays')">
-              </div>
-          </td>
-          <td><div class="ui input">
-              <input type="text"
-                placeholder="data from insights"
-                v-model="dataIntegrityData.engagementsToDate.smartTipVV"
-                v-on:keyup="getAvgMonthlyEngCol('smartTipVV')">
-              </div>
-          </td>
+        </v-layout row>
 
-        </tr>
-        <tr v-show="sectionVisible">
-          <td>Avg Monthly Engagement</td>
-          <td>{{round(dataIntegrityData.avgMonthlyEngagement.launcherPlays,1)}}</td>
-          <td>{{round(dataIntegrityData.avgMonthlyEngagement.smartTipVV,1)}}</td>
+        <v-layout row>
+          <v-flex xs11 offset-xs1>
+           <v-subheader class="leftlabel">What percentage of WM application engagements do you think deflected a support inquiry?</v-subheader>
+         </v-flex>
+        </v-layout>
+        <v-layout row >
+          <!-- <div class="inputgroup"> -->
+          <v-flex xs2 offset-xs3 class="mr-3 inputgroup">
+            <v-subheader >Launchers (invisible)</v-subheader>
+            <v-text-field
+              name="input-1-3"
+              label="%"
+              single-line
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs2 class="mr-3 inputgroup">
+            <v-subheader >SmartTips (validation)</v-subheader>
+            <v-text-field
+              name="input-1-3"
+              label="%"
+              single-line
+            ></v-text-field>
+          </v-flex>
+          <!-- </div> -->
+        </v-layout row>
 
-        </tr>
-        <tr v-show="sectionVisible">
-          <td>Minutes Saved per Engagement</td>
-          <td><div class="ui input">
-                <input type="text"
-                  placeholder="data from insights"
-                  v-model="dataIntegrityData.minutesSavedPerEngagement.launcherPlays"
-                  v-on:keyup="getColAMS('launcherPlays')">
-              </div>
-          </td>
-          <td><div class="ui input">
-                <input type="text"
-                  placeholder="data from insights"
-                  v-model="dataIntegrityData.minutesSavedPerEngagement.smartTipVV"
-                  v-on:keyup="getColAMS('smartTipVV')">
-              </div>
-          </td>
 
-        </tr>
-        <tr>
-          <td><strong>Average Monthly Savings</strong></td>
-          <td>{{round(dataIntegrityData.avgMonthlySavings.launcherPlays,1)}}</td>
-          <td>{{round(dataIntegrityData.avgMonthlySavings.smartTipVV,1)}}</td>
 
-        </tr>
-        <tr>
-          <td><strong>Total Saved to Date</strong></td>
-          <td colspan="2" class="final">{{round(dataIntegrityData.totalSavedToDate,2)}} {{customer.currency}}</td>
-        </tr>
+        </v-card-text>
 
-    </tbody>
-  </table>
-    <div class="ui buttons">
-        <button class='ui basic blue button' v-on:click="final()">
-          Calculate
-        </button>
-        <button class='ui basic blue button' v-on:click="submitDataEvent('dataIntegrityData',dataIntegrityData)">
-          Submit Data
-        </button>
-    </div>
-  </div>
+        <v-flex xs12 offset-xs8>
+          <v-card-actions>
+            <v-btn color="primary">Submit</v-btn>
+          </v-card-actions>
+        </v-flex>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script type="text/javascript">
@@ -111,71 +90,48 @@ export default {
   data () {
     return {
       sectionVisible: true,
-      columns: ['launcherPlays', 'smartTipVV'],
-      dataIntegrityData: {
-        engagementsToDate: {
-          launcherPlays: null,
-          smartTipVV: null
-        },
-        avgMonthlyEngagement: {
-          launcherPlays: null,
-          smartTipVV: null
-        },
-        minutesSavedPerEngagement: {
-          launcherPlays: null,
-          smartTipVV: null
-        },
-        avgMonthlySavings: {
-          launcherPlays: null,
-          smartTipVV: null
-        },
-        totalSavedToDate: null
+      supportDeflect: {
+        ticketResolveTime: '',
+        supportHourlyWage: ''
       }
     }
   },
-  mixins: [round],
+  // computed: {
+  //   avgMonthlyEng: function () {
+  //     let avgMonthlyEng = this.trainingData.engagementGoalsReached / this.customer.monthsIntoContract
+  //     return avgMonthlyEng
+  //   }
+  // },
+  mixins: [ round ],
   methods: {
-    toggleVisible (string) {
-      console.log(string)
+    toggleVisible () {
       this.sectionVisible = !this.sectionVisible
     },
-    getAvgMonthlyEngCol (col) {
-      let data = this.dataIntegrityData
-      let customer = this.customer
-      data.avgMonthlyEngagement[col] = data.engagementsToDate[col] / customer.monthsSinceGoLive
-      this.$forceUpdate()
-    },
-    getColAMS (col) {
-      let data = this.dataIntegrityData
-      let customer = this.customer
-      let avgMonthlySavings = data.avgMonthlyEngagement[col] * data.minutesSavedPerEngagement[col] / 60 * customer.empHourlyWage * 2 * customer.percentDataEngagementsResultingInDataCleansing
-      console.log(data)
-      console.log(customer)
-      console.log(avgMonthlySavings)
-      data.avgMonthlySavings[col] = avgMonthlySavings
+    setData () {
+      this.customer.dataSubmit = true
+      // this is my workaround to force a submit event
     },
     getData () {
       this.$forceUpdate()
     },
-    final () {
-      let data = this.dataIntegrityData
-      let columns = this.columns
-      let subtotal = 0
-      let avgMonthlySavings = data.avgMonthlySavings
-      columns.forEach(function (col) {
-        subtotal = subtotal + avgMonthlySavings[col]
-      })
-      data.totalSavedToDate = subtotal
-      console.log('final is ', subtotal)
-    },
     submitDataEvent (key, data) {
       console.log(key, data)
       this.$emit('submit-data-event', key, data)
+    },
+    isNumber (input) {
+      return typeof input === 'number'
     }
   }
 }
 </script>
 
 <style>
+.leftlabel {
+  text-align: left;
+  font-size: 1.2em;
+}
 
+.inputgroup {
+  background-color: #EBEBEB;
+}
 </style>

@@ -11,7 +11,7 @@
           <v-layout row>
             <v-flex xs5 offset-xs1>
              <v-subheader class="leftlabel"> How long is someone actively resolving a ticket on average?</v-subheader>
-             <v-divider></v-divider>
+
            </v-flex>
            <v-flex xs4>
              <v-text-field
@@ -26,7 +26,7 @@
          <v-layout row>
            <v-flex xs5 offset-xs1>
             <v-subheader class="leftlabel">What is the avg hourly wage of a support agent?</v-subheader>
-            <v-divider></v-divider>
+          
           </v-flex>
           <v-flex xs4>
             <v-text-field
@@ -39,6 +39,7 @@
            </v-flex>
 
         </v-layout row>
+        <!-- table column start -->
         <v-layout row>
           <v-flex xs11 offset-xs1>
            <v-subheader class="leftlabel">What percentage of WM application engagements do you think deflected a support inquiry?</v-subheader>
@@ -88,8 +89,104 @@
           </v-flex>
           <!-- </div> -->
         </v-layout row>
-
-
+        <!-- table column end -->
+        <!-- table column start -->
+        <v-layout row>
+          <v-flex xs11 offset-xs1>
+           <v-subheader class="leftlabel">Engagements with each solution (pull from Insights)</v-subheader>
+         </v-flex>
+        </v-layout>
+        <v-layout row >
+          <v-flex xs1 offset-xs2 class="mr-3 inputgroup">
+            <v-subheader >SWTs</v-subheader>
+            <v-text-field
+              name="input-1-3"
+              label="#"
+              single-line
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs1 class="mr-3 inputgroup">
+            <v-subheader >SmartTips</v-subheader>
+            <v-text-field
+              name="input-1-3"
+              label="#"
+              single-line
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs1 class="mr-3 inputgroup">
+            <v-subheader >Resources</v-subheader>
+            <v-text-field
+              name="input-1-3"
+              label="#"
+              single-line
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs1 class="mr-3 inputgroup">
+            <v-subheader >Launchers</v-subheader>
+            <v-text-field
+              name="input-1-3"
+              label="#"
+              single-line
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs1 class="mr-3 inputgroup">
+            <v-subheader >Shoutouts</v-subheader>
+            <v-text-field
+              name="input-1-3"
+              label="#"
+              single-line
+            ></v-text-field>
+          </v-flex>
+        </v-layout row>
+        <!-- table column end -->
+        <!-- table column start -->
+        <v-layout row>
+          <v-flex xs11 offset-xs1>
+           <v-subheader class="leftlabel">Minutes Saved with Each Interaction (customer estimate)</v-subheader>
+         </v-flex>
+        </v-layout>
+        <v-layout row >
+          <v-flex xs1 offset-xs2 class="mr-3 inputgroup">
+            <v-subheader >SWTs</v-subheader>
+            <v-text-field
+              name="input-1-3"
+              label="min"
+              single-line
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs1 class="mr-3 inputgroup">
+            <v-subheader >SmartTips</v-subheader>
+            <v-text-field
+              name="input-1-3"
+              label="min"
+              single-line
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs1 class="mr-3 inputgroup">
+            <v-subheader >Resources</v-subheader>
+            <v-text-field
+              name="input-1-3"
+              label="min"
+              single-line
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs1 class="mr-3 inputgroup">
+            <v-subheader >Launchers</v-subheader>
+            <v-text-field
+              name="input-1-3"
+              label="min"
+              single-line
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs1 class="mr-3 inputgroup">
+            <v-subheader >Shoutouts</v-subheader>
+            <v-text-field
+              name="input-1-3"
+              label="min"
+              single-line
+            ></v-text-field>
+          </v-flex>
+        </v-layout row>
 
         </v-card-text>
 

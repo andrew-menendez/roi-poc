@@ -11,7 +11,7 @@
           <v-layout row>
             <v-flex xs5 offset-xs1>
              <v-subheader class="leftlabel"> What is the typical amount of time spent per customer on training? (minutes):</v-subheader>
-             <v-divider></v-divider>
+
            </v-flex>
            <v-flex xs4>
              <v-text-field
@@ -26,7 +26,7 @@
          <v-layout row>
            <v-flex xs5 offset-xs1>
             <v-subheader class="leftlabel">What portion of your training did we move online (What portion can WalkMe solution for?):</v-subheader>
-            <v-divider></v-divider>
+            
           </v-flex>
           <v-flex xs4>
             <v-text-field

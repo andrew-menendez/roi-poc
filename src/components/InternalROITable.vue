@@ -31,7 +31,7 @@
         <support-deflection v-on:submit-data-event="updateData" v-bind:customer="customer"></support-deflection>
       </v-flex>
       <v-flex xs12>
-        <!-- <data-integrity v-on:submit-data-event="updateData" v-bind:customer="customer"></data-integrity> -->
+        <data-integrity v-on:submit-data-event="updateData" v-bind:customer="customer"></data-integrity>
       </v-flex>
       <v-flex xs12>
         <!-- <materials-dev v-on:submit-data-event="updateData" v-bind:customer="customer"></materials-dev> -->
@@ -99,22 +99,5 @@ export default {
 
 
 <style>
-.infocell{
-  font-size:1.5em;
-  border-right: 1px solid #E4E5E5
-  /*#c4c4ce*/
-}
 
-
-.lblue {
-  background-color: #DAEBFF
-
-}
-.white {
-  background-color: #FFFFFF
-}
-
-.tan {
-  background-color: #FAFAFB
-}
 </style>
