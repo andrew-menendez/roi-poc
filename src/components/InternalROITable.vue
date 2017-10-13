@@ -1,5 +1,4 @@
 <template>
-  <div id="tablepanel">
     <!-- <h1 class="ui center aligned header"> Table goes here</h1> -->
     <div class="v-container">
 
@@ -19,8 +18,48 @@
 
           <!-- end of inputs -->
 
+<v-stepper v-model="e6" vertical>
+  <v-stepper-step step="1" v-bind:complete="e6 > 1">
+      Development Costs
+      <small>Summarize if needed</small>
+    </v-stepper-step>
+    <v-stepper-content step="1">
+      <development v-on:submit-data-event="updateData" v-bind:customer="customer"></development>
+      <v-btn color="primary" @click.native="e6 = 2">Continue</v-btn>
 
-    <v-layout row wrap>
+    </v-stepper-content>
+
+    <v-stepper-step step="2" v-bind:complete="e6 > 2">
+        Trainining Time
+        <small>Summarize if needed</small>
+    </v-stepper-step>
+    <v-stepper-content step="2">
+        <training v-on:submit-data-event="updateData" v-bind:customer="customer"></training>
+        <v-btn color="primary" @click.native="e6 = 3">Continue</v-btn>
+        <v-btn @click.native="e6 = 1" flat>Back</v-btn>
+    </v-stepper-content>
+
+      <v-stepper-step step="3" v-bind:complete="e6 > 3">
+          Support Deflection
+          <small>Summarize if needed</small>
+      </v-stepper-step>
+      <v-stepper-content step="3">
+          <support-deflection v-on:submit-data-event="updateData" v-bind:customer="customer"></support-deflection>
+          <v-btn color="primary" @click.native="e6 = 4">Continue</v-btn>
+          <v-btn @click.native="e6 = 2" flat>Back</v-btn>
+      </v-stepper-content>
+
+      <v-stepper-step step="4" v-bind:complete="e6 > 4">
+          Data Integrity
+          <small>Summarize if needed</small>
+      </v-stepper-step>
+      <v-stepper-content step="4">
+          <data-integrity v-on:submit-data-event="updateData" v-bind:customer="customer"></data-integrity>
+          <v-btn color="primary" @click.native="e6 = 5">Continue</v-btn>
+          <v-btn @click.native="e6 = 3" flat>Back</v-btn>
+      </v-stepper-content>
+
+    <!-- <v-layout row wrap>
       <v-flex xs12>
         <development v-on:submit-data-event="updateData" v-bind:customer="customer"></development>
       </v-flex>
@@ -33,14 +72,15 @@
       <v-flex xs12>
         <data-integrity v-on:submit-data-event="updateData" v-bind:customer="customer"></data-integrity>
       </v-flex>
-      <v-flex xs12>
+      <v-flex xs12> -->
+
         <!-- <materials-dev v-on:submit-data-event="updateData" v-bind:customer="customer"></materials-dev> -->
-      </v-flex>
-      <v-flex xs12>
+      <!-- </v-flex>
+      <v-flex xs12> -->
         <!-- <roi-table v-bind:customer="customer"></roi-table> -->
-      </v-flex>
-    </v-layout>
-    </div>
+      <!-- </v-flex>
+    </v-layout> -->
+</v-stepper>
   </div>
 </template>
 
@@ -58,6 +98,7 @@ export default {
   props: [],
   data () {
     return {
+      e6: 1,
       customer: {
         currency: 'USD',
         dataSubmit: false,
