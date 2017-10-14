@@ -3,7 +3,7 @@ import Router from 'vue-router'
 // import Hello from '@/components/Hello'
 import Home from '@/components/Home'
 import Tools from '@/components/Tools'
-// import TablePanel from '@/components/TablePanel'
+import Customizer from '@/components/Customizer'
 import InternalROITable from '@/components/InternalROITable'
 import About from '@/components/About'
 
@@ -29,7 +29,13 @@ export default new Router({
     {
       path: '/internalroi',
       name: 'internalroi',
-      component: InternalROITable
+      component: InternalROITable,
+      props: true
+    },
+    {
+      path: '/customize',
+      name: 'customize',
+      component: Customizer
     }
   ]
 })

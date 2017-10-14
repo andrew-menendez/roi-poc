@@ -21,7 +21,7 @@
           </v-flex>
           <v-flex xs4>
             <v-select
-              v-bind:items="generalData.q1Items"
+              v-bind:items="questions.q1Items"
               v-model="generalData.mainUseCase"
               label="Select"
               single-line
@@ -34,23 +34,22 @@
           <v-flex xs12 sm4>
             <v-select
               label="Select"
-              v-bind:items="generalData.q2Items"
+              v-bind:items="questions.q2Items"
               v-model="generalData.financialDrivers"
               multiple
-              chips
               hint="What factors should we include in the projection?"
               persistent-hint
             ></v-select>
-          </v-flex>
-          <v-flex xs12 offset-xs8>
-            <v-card-actions>
-              <v-btn color="primary">Start!</v-btn>
-            </v-card-actions>
+            <!-- can add 'chips' to the v-select for icons -->
           </v-flex>
         </v-layout>
       </v-container>
     </v-card-text>
-
+    <v-flex xs12 offset-xs8>
+      <v-card-actions>
+        <v-btn v-on:click="submitDataEvent('calcSettings',generalData)" color="primary">Submit</v-btn>
+      </v-card-actions>
+    </v-flex>
   </v-card>
   </v-flex>
 </template>
@@ -63,60 +62,24 @@ export default {
   props: ['customer'],
   data () {
     return {
-      sectionVisible: true,
-      columns: null,
+      questions: {q1Items: [
+        { text: 'Training' },
+        { text: 'Feature Adoption' },
+        { text: 'Conversion' },
+        { text: 'Retention' }
+      ],
+        q2Items: ['Development', 'Training Time', 'Support Deflection', 'Data Integrity']
+      },
       generalData: {
         mainUseCase: null,
-        financialDrivers: null,
-        q1Items: [
-          { text: 'Training' },
-          { text: 'Feature Adoption' },
-          { text: 'Conversion' },
-          { text: 'Retention' }
-        ],
-        q2Items: [
-          { text: 'Development' },
-          { text: 'Training Time' },
-          { text: 'Support Deflection' },
-          { text: 'Data Integrity' }
-        ]
+        financialDrivers: null
       }
     }
   },
   mixins: [round],
   methods: {
-    toggleVisible (string) {
-      console.log(string)
-      this.sectionVisible = !this.sectionVisible
-    },
-    getAvgMonthlyEngCol (col) {
-      let data = this.dataIntegrityData
-      let customer = this.customer
-      data.avgMonthlyEngagement[col] = data.engagementsToDate[col] / customer.monthsSinceGoLive
-      this.$forceUpdate()
-    },
-    getColAMS (col) {
-      let data = this.dataIntegrityData
-      let customer = this.customer
-      let avgMonthlySavings = data.avgMonthlyEngagement[col] * data.minutesSavedPerEngagement[col] / 60 * customer.empHourlyWage * 2 * customer.percentDataEngagementsResultingInDataCleansing
-      console.log(data)
-      console.log(customer)
-      console.log(avgMonthlySavings)
-      data.avgMonthlySavings[col] = avgMonthlySavings
-    },
     getData () {
       this.$forceUpdate()
-    },
-    final () {
-      let data = this.dataIntegrityData
-      let columns = this.columns
-      let subtotal = 0
-      let avgMonthlySavings = data.avgMonthlySavings
-      columns.forEach(function (col) {
-        subtotal = subtotal + avgMonthlySavings[col]
-      })
-      data.totalSavedToDate = subtotal
-      console.log('final is ', subtotal)
     },
     submitDataEvent (key, data) {
       console.log(key, data)

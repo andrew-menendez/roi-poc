@@ -8,7 +8,7 @@
             <thead>
             <tr>
               <th colspan="3">
-                  <h1>General Inputs</h1>
+                  <h1>XGeneral Inputs</h1>
                   {{customer}}
               </th>
             </tr>

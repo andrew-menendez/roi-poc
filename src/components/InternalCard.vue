@@ -11,7 +11,7 @@
       </div>
     </v-card-title>
     <v-card-actions>
-      <v-btn @click="routeGo('internalroi')" flat color="orange">New</v-btn>
+      <v-btn @click="routeGo('customize')" flat color="orange">New</v-btn>
     </v-card-actions>
   </v-card>
 </template>
