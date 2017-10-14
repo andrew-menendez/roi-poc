@@ -4,16 +4,38 @@
       <v-card-title primary-title>
         <div>
           <h3 class="headline mb-0">Customize the Calculator</h3>
+          <p> getters proj length {{projLength}}</p>
         </div>
       </v-card-title>
     <v-card-text>
       <v-container fluid>
         <v-layout row wrap>
-          <v-flex xs12>
-            <p> What has been done so far? What would happen if WalkMe wasn't there?</p>
-            <v-divider></v-divider>
+          <v-flex xs5 offset-xs1>
+            <v-subheader>Name</v-subheader>
           </v-flex>
-
+          <v-flex xs4>
+            <v-text-field
+              name="calcName"
+              label="projection name"
+              v-model="generalData.name"
+              v-on:keyup="getData()">
+              >
+             </v-text-field>
+          </v-flex>
+        </v-layout>
+        <v-layout row wrap>
+          <v-flex xs5 offset-xs1>
+            <v-subheader>Success Record</v-subheader>
+          </v-flex>
+          <v-flex xs4>
+            <v-text-field
+              name="successRecord"
+              label="link to SFDC success"
+              v-model="generalData.successRecord"
+              v-on:keyup="getData()">
+              >
+             </v-text-field>
+          </v-flex>
         </v-layout>
         <v-layout row wrap>
           <v-flex xs5 offset-xs1>
@@ -47,15 +69,15 @@
     </v-card-text>
     <v-flex xs12 offset-xs8>
       <v-card-actions>
-        <v-btn v-on:click="submitDataEvent('calcSettings',generalData)" color="primary">Submit</v-btn>
+        <v-btn v-on:click="initiate(generalData)" color="primary">Submit</v-btn>
       </v-card-actions>
     </v-flex>
+
   </v-card>
   </v-flex>
 </template>
 
 <script type="text/javascript">
-
 import round from '../mixins/round.js'
 
 export default {
@@ -68,12 +90,24 @@ export default {
         { text: 'Conversion' },
         { text: 'Retention' }
       ],
-        q2Items: ['Development', 'Training Time', 'Support Deflection', 'Data Integrity']
+        q2Items: [
+        {text: 'Development', value: 'dev'},
+        {text: 'Training Time', value: 'training'},
+        {text: 'Support Deflection', value: 'support'},
+        {text: 'Data Integrity', value: 'dataInt'}
+        ]
       },
       generalData: {
+        name: null,
+        successRecord: null,
         mainUseCase: null,
-        financialDrivers: null
+        financialDrivers: []
       }
+    }
+  },
+  computed: {
+    projLength () {
+      return this.$store.getters.projLength
     }
   },
   mixins: [round],
@@ -81,9 +115,11 @@ export default {
     getData () {
       this.$forceUpdate()
     },
-    submitDataEvent (key, data) {
-      console.log(key, data)
-      this.$emit('submit-data-event', key, data)
+    initiate (generalData) {
+      // calls the vuex action
+      this.$store.dispatch('addProjection', generalData)
+      this.$store.dispatch('setSteps')
+      this.$emit('submit-data-event')
     }
   }
 }

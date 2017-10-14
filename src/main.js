@@ -5,6 +5,7 @@ import VueResource from 'vue-resource'
 import Vuetify from 'vuetify'
 import App from './App'
 import router from './router'
+import store from './vuex/store'
 
 Vue.config.productionTip = false
 Vue.use(VueResource)
@@ -13,6 +14,7 @@ Vue.use(Vuetify)
 router.replace('/about')
 /* eslint-disable no-new */
 new Vue({
+  store,
   el: '#app',
   router,
   template: '<App/>',

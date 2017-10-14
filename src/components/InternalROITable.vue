@@ -1,58 +1,26 @@
 <template>
-    <!-- <h1 class="ui center aligned header"> Table goes here</h1> -->
     <div class="v-container">
-
-
-          <!-- <div class="ui buttons">
-              <button class='ui basic blue button' v-on:click="setData()">
-                Start!
-              </button>
-          </div> -->
-
-          <!-- end of inputs -->
-          <p>{{calcSettings}}</p>
-
-<v-stepper v-model="e6" vertical>
-  <v-stepper-step step="1" v-bind:complete="e6 > 1">
-      Development Costs
-      <small>Summarize if needed</small>
-    </v-stepper-step>
-    <v-stepper-content step="1">
-      <development v-on:submit-data-event="updateData" v-bind:customer="customer"></development>
-      <v-btn color="primary" @click.native="e6 = 2">Continue</v-btn>
-
-    </v-stepper-content>
-
-    <v-stepper-step step="2" v-bind:complete="e6 > 2">
-        Trainining Time
-        <small>Summarize if needed</small>
-    </v-stepper-step>
-    <v-stepper-content step="2">
-        <training v-on:submit-data-event="updateData" v-bind:customer="customer"></training>
-        <v-btn color="primary" @click.native="e6 = 3">Continue</v-btn>
-        <v-btn @click.native="e6 = 1" flat>Back</v-btn>
-    </v-stepper-content>
-
-      <v-stepper-step step="3" v-bind:complete="e6 > 3">
-          Support Deflection
-          <small>Summarize if needed</small>
-      </v-stepper-step>
-      <v-stepper-content step="3">
-          <support-deflection v-on:submit-data-event="updateData" v-bind:customer="customer"></support-deflection>
-          <v-btn color="primary" @click.native="e6 = 4">Continue</v-btn>
-          <v-btn @click.native="e6 = 2" flat>Back</v-btn>
+    <p>get drivers {{calcSteps}}</p>
+    <v-stepper v-model="e1" vertical>
+        <template v-for="(step, index) in calcSteps">
+          <v-stepper-step
+            :key="step.id"
+            :step="index+1"
+            :complete="e1 > index"
+            editable
+          >
+            Step: {{ step.name }}
+          </v-stepper-step>
+      <v-stepper-content
+        :step="index+1"
+        :key="step.id"
+      >
+        <component :is="step.comp"></component>
+        <v-btn color="primary" @click="e1++">Continue</v-btn>
+        <v-btn flat>Cancel</v-btn>
       </v-stepper-content>
-
-      <v-stepper-step step="4" v-bind:complete="e6 > 4">
-          Data Integrity
-          <small>Summarize if needed</small>
-      </v-stepper-step>
-      <v-stepper-content step="4">
-          <data-integrity v-on:submit-data-event="updateData" v-bind:customer="customer"></data-integrity>
-          <v-btn color="primary" @click.native="e6 = 5">Continue</v-btn>
-          <v-btn @click.native="e6 = 3" flat>Back</v-btn>
-      </v-stepper-content>
-</v-stepper>
+      </template>
+    </v-stepper>
   </div>
 </template>
 
@@ -67,15 +35,29 @@ import RoiTable from './RoiTable'
 import InternalGeneralInputs from './InternalGeneralInputs'
 
 export default {
-  props: ['calcSettings'],
+  props: [],
   data () {
     return {
-      e6: 1,
+      e1: 0,
+      steps: [{
+        comp: 'development',
+        name: 'Development'
+      },
+      {
+        comp: 'data-integrity',
+        name: 'Data Integrity'
+      }],
       customer: {
         currency: 'USD',
         dataSubmit: false,
         a: false
       }
+    }
+  },
+  computed: {
+    calcSteps () {
+      console.log('fuuuck')
+      return (this.$store.getters.activeCalcSettings) ? this.$store.getters.activeCalcSettings : this.steps
     }
   },
   components: {
@@ -88,8 +70,24 @@ export default {
     Development
   },
   methods: {
-    printData () {
-      console.log(this.customer)
+    getCalcSettings () {
+      console.log('arg')
+      console.log(this.calcSettings)
+      return this.calcSettings
+    },
+    _calcStructure: function (calcSettings) {
+      console.log('huh')
+      console.log(calcSettings)
+      if (calcSettings.financialDrivers) {
+        console.log('hello')
+        let sections = calcSettings.financialDrivers
+        let structure = {}
+        sections.forEach(function (key, value) {
+          structure[key] = {'index': key, 'value': value}
+        })
+        console.log(structure)
+        return structure
+      } else return calcSettings
     },
     setData () {
       this.customer.dataSubmit = true

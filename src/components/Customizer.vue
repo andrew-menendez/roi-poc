@@ -1,19 +1,15 @@
 <template>
 
   <v-layout row wrap>
-    <v-flex xs12 >
+    <v-flex xs12 v-show="!calcVisible">
       <v-card color="primary">
         <internal-general-inputs v-on:submit-data-event="initiate"></internal-general-inputs>
         <v-flex xs12 offset-xs8>
-          <!-- <v-card-actions>
-            <v-btn @click="routeGo('internalroi')" color="primary">Start!</v-btn>
-          </v-card-actions> -->
         </v-flex>
-        <p>{{calcSettings}}</p>
       </v-card>
     </v-flex>
     <v-flex xs12 v-show="calcVisible">
-      <internal-r-o-i-table v-bind:calcSettings="calcSettings"></internal-r-o-i-table>
+      <internal-r-o-i-table></internal-r-o-i-table>
     </v-flex>
   </v-layout>
 
@@ -26,7 +22,8 @@ export default {
   data () {
     return {
       calcVisible: false,
-      calcSettings: {}
+      calcSettings: {},
+      financialDrivers: null
     }
   },
   components: {
@@ -37,15 +34,14 @@ export default {
     routeGo: function (route) {
       this.$router.replace(route)
     },
-    initiate: function (key, data) {
-      this.updateData(key, data)
+    initiate: function () {
+      console.log('helloooo?')
+      this.$store.dispatch('setSteps')
       this.calcVisible = true
     },
     updateData (key, data) {
-      console.log('outside', key, data)
       this.calcSettings[key] = data
       this.$forceUpdate()
-      console.log(this.calcSettings.financialDrivers)
     }
   }
 }
